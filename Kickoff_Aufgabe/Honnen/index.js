@@ -1,4 +1,5 @@
 var fs = require('fs');
+var chalk = require('chalk');
 
 fs.readFile('staedte.json', function(err, data){
   var staedte = JSON.parse(data);
@@ -11,5 +12,5 @@ fs.readFile('staedte.json', function(err, data){
     if(i < staedte.cities.length - 1){
       console.log("--------------------");
     }
-  };
+  }
 });

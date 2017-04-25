@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/rehne/WBA2SS17HonnenCetinerHassini/issues"
   },
-  "homepage": "https://github.com/rehne/WBA2SS17HonnenCetinerHassini#readme"
+  "homepage": "https://github.com/rehne/WBA2SS17HonnenCetinerHassini#readme",
+  "dependencies": {
+    "chalk": "^1.1.3"
+  }
 }
