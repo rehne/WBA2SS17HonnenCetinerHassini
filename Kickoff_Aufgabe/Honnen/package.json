@@ -1,0 +1,19 @@
+{
+  "name": "kickoff_aufgabe_honnen",
+  "version": "0.0.1",
+  "description": "WBA2 Kickoff Aufgabe von René Honnen",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/rehne/WBA2SS17HonnenCetinerHassini.git"
+  },
+  "author": "René Honnen",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/rehne/WBA2SS17HonnenCetinerHassini/issues"
+  },
+  "homepage": "https://github.com/rehne/WBA2SS17HonnenCetinerHassini#readme"
+}
