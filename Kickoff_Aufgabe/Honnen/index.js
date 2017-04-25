@@ -8,6 +8,8 @@ fs.readFile('staedte.json', function(err, data){
     console.log('name: ' + staedte.cities[i].name);
     console.log('country: ' + staedte.cities[i].country);
     console.log('population: ' + staedte.cities[i].population);
-    console.log('--------------------');
+    if(i < staedte.cities.length - 1){
+      console.log("--------------------");
+    }
   };
 });
