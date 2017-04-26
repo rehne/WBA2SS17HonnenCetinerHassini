@@ -7,9 +7,11 @@ fs.readFile('staedte.json', function(err, data){
   /*
    * Aufgabe 3: Sortieren der Städte nach Einwohnerzahl
    */
-   staedte.cities.sort(function(a, b){
-     return a.population - b.population;
-   });
+  staedte.cities.sort(function(a, b){
+    return a.population - b.population;
+  });
+
+  fs.writeFileSync('staedte_sortiert.json', JSON.stringify(staedte));
 
   /*
    * Aufgabe 1: Formatierte Ausgabe auf der Konsole
