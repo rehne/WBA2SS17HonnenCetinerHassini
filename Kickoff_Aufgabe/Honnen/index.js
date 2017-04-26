@@ -5,6 +5,13 @@ fs.readFile('staedte.json', function(err, data){
   var staedte = JSON.parse(data);
 
   /*
+   * Aufgabe 3: Sortieren der Städte nach Einwohnerzahl
+   */
+   staedte.cities.sort(function(a, b){
+     return a.population - b.population;
+   });
+
+  /*
    * Aufgabe 1: Formatierte Ausgabe auf der Konsole
    * &&
    * Aufgabe 2: bunte Ausgabe mit chalk.color()
