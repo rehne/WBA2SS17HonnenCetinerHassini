@@ -5,12 +5,13 @@ fs.readFile('staedte.json', function(err, data){
   var staedte = JSON.parse(data);
 
   /*
-   * Aufgabe 3: Sortieren der Städte nach Einwohnerzahl
+   * Aufgabe 3: Sortieren der Städte nach Einwohnerzahl ..
    */
   staedte.cities.sort(function(a, b){
     return a.population - b.population;
   });
 
+  // .. und in neue Datei speichern
   fs.writeFileSync('staedte_sortiert.json', JSON.stringify(staedte));
 
   /*
