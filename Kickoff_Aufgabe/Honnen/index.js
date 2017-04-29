@@ -12,7 +12,7 @@ fs.readFile('staedte.json', function(err, data){
   });
 
   // .. und in neue Datei speichern
-  fs.writeFile('staedte_sortiert.json', JSON.stringify(staedte));
+  fs.writeFile('staedte_sortiert.json', JSON.stringify(staedte, null, 4));
 
   /*
    * Aufgabe 1: Formatierte Ausgabe auf der Konsole
