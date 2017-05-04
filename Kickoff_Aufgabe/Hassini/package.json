@@ -1,0 +1,22 @@
+{
+  "name": "kickoff_aufgabe",
+  "version": "1.0.0",
+  "description": "kickoff aufgabe wba1 hassini",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rehne/WBA2SS17HonnenCetinerHassini.git"
+  },
+  "author": "Sami Hassini",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/rehne/WBA2SS17HonnenCetinerHassini/issues"
+  },
+  "homepage": "https://github.com/rehne/WBA2SS17HonnenCetinerHassini#readme",
+  "dependencies": {
+    "chalk": "^1.1.3"
+  }
+}
