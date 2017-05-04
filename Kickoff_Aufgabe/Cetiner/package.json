@@ -1,0 +1,22 @@
+{
+  "name": "kickoff_cetiner",
+  "version": "1.0.0",
+  "description": "Kickoff Aufgabe Cetiner",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/rehne/WBA2SS17HonnenCetinerHassini.git"
+  },
+  "author": "Aziz Cetiner",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/rehne/WBA2SS17HonnenCetinerHassini/issues"
+  },
+  "homepage": "https://github.com/rehne/WBA2SS17HonnenCetinerHassini#readme",
+  "dependencies": {
+    "chalk": "^1.1.3"
+  }
+}
