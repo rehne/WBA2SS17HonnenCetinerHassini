@@ -1,26 +1,10 @@
 {
-  "user": [
-    {
-      "id": 0,
-      "vorname": "Sami",
-      "nachname": "Hassini"
-    },
-    {
-      "id": 1,
-      "vorname": "Aziz",
-      "nachname": "Cetiner"
-    },
-    {
-      "id": 2,
-      "vorname": "Rene",
-      "nachname": "Honnen"
-    }
-  ],
+  "user": [],
   "offers": [
     {
       "id": 0,
-      "name": "Staubsauger",
-      "description": "Beispiel Offer"
+      "name": "\"Nimbus 2000\"",
+      "description": "\"Der Nimbus 2000 ist ein Zauberbesen\""
     }
   ]
 }
