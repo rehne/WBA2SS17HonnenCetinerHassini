@@ -21,13 +21,29 @@ app.get('/', function(req, res){
   res.status(200).send('Hello World!');
 });
 
+// User Methoden
 app.get('/user', function(req, res){
-  var users = ["Sami", "Aziz", "Rene"];
-  res.json(users);
+  fs.readFile('database.json', function(err, data){
+    var user = JSON.parse(data);
+    res.status(200).send(user.user);
+  });
+});
+app.get('/user/:userID')
+app.post('/user', function(req, res){
+  fs.readFile('user.json', function(err, data){
+    
+  });
 });
 
-app.post('/user', function(req, res){
-  
+// Offer Methoden
+app.get('/offers', function(req, res){
+  fs.readFile('database.json', function(err, data){
+    var offers = JSON.parse(data);
+    res.status(200).send(offers.offers);
+  });
+});
+app.post('/offers', function(req, res){
+
 });
 
 app.listen(settings.port, function(){
