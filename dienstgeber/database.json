@@ -1,4 +1,28 @@
 {
-  "users": [],
-  "offers": []
+  "users": [
+    {
+      "id": 0
+    },
+    {
+      "id": 1,
+      "vorname": "\"Philip\"",
+      "nachname": "\"Lutz\""
+    },
+    {
+      "id": 2,
+      "vorname": "\"Aziz\"",
+      "nachname": "\"Hassini\""
+    }
+  ],
+  "offers": [
+    {
+      "id": 0,
+      "name": "\"Nimbus 2000\"",
+      "description": "\"bla bla bla\""
+    },
+    {
+      "id": 1,
+      "name": "\"Staubsauger\""
+    }
+  ]
 }

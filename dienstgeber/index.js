@@ -5,9 +5,9 @@ var bodyParser=require('body-parser');
 var app = express();
 app.use(bodyParser.json());
 
-
 const settings = {
-  port: 3000
+  port: 3000,
+  database: './database.json'
 };
 
 app.use(function(err, req, res, next){
@@ -24,89 +24,113 @@ app.get('/', function(req, res){
   res.status(200).send('Hello World!');
 });
 
-// User Methoden
+/*
+ * User Methoden
+ */
+// GET /users
 app.get('/users', function(req, res){
-  fs.readFile('database.json', function(err, data){
+  fs.readFile(settings.database, function(err, data){
     var user = JSON.parse(data);
     res.status(200).send(user.users);
   });
 });
-
-
-app.get('/users/:userID', function(req,res){
-    fs.readFile('database.json', function(err, data){
-        var user = JSON.parse(data);
-        //res.status(200).send(user.user);
-        var result = "";
-
-        for(var i = 0; i < user.users.length; i++ ){
-            if(user.users[i].id == req.params.userID){                
-                res.status(200).send(user.users[i]);  
-            }
-        }
-    });
-});
-
-
-
+// POST /users
 app.post('/users', bodyParser.json(), function(req, res){
-    console.log(req.body);
-    
-  fs.readFile('database.json', function(err, data){
-      var user = JSON.parse(data);
-    
-      
-      user.users.push({
-          "id": user.users.length,
-          "vorname": JSON.stringify(req.body.vorname),
-          "nachname": JSON.stringify(req.body.nachname)
-      });
-      
-      fs.writeFile("database.json", JSON.stringify(user, null, 2));
+
+  fs.readFile(settings.database, function(err, data){
+    var user = JSON.parse(data);
+
+    user.users.push({
+      "id": user.users.length,
+      "vorname": JSON.stringify(req.body.vorname),
+      "nachname": JSON.stringify(req.body.nachname)
+    });
+      fs.writeFile(settings.database, JSON.stringify(user, null, 2));
   });
-    res.status(201).send("User erfolgreich gespeichert!\n");
+  res.status(201).send("User erfolgreich gespeichert!\n");
+});
+// GET /usersID
+app.get('/users/:userID', function(req,res){
+  fs.readFile(settings.database, function(err, data){
+    var user = JSON.parse(data);
+    for(var i = 0; i < user.users.length; i++ ){
+      if(user.users[i].id == req.params.userID){
+        res.status(200).send(user.users[i]);
+      }
+    }
+  });
+});
+// PUT /usersID
+app.put('/users/:userID', bodyParser.json(), function(req, res){
+  fs.readFile(settings.database, function(err, data){
+    var user = JSON.parse(data);
+    for(var i = 0; i < user.users.length; i++ ){
+      if(user.users[i].id == req.params.userID){
+        user.users[i].vorname = JSON.stringify(req.body.vorname);
+        user.users[i].nachname = JSON.stringify(req.body.nachname);
+        fs.writeFile(settings.database, JSON.stringify(user, null, 2));
+        res.status(200).send("User erfolgreich bearbeitet");
+      }
+    }
+  });
+});
+// DELETE /usersID
+app.delete('/users/:userID', function(req, res){
+
 });
 
-
-
-// Offer Methoden
+/*
+ * Offer Methoden
+ */
+// GET /offers
 app.get('/offers', function(req, res){
-  fs.readFile('database.json', function(err, data){
+  fs.readFile(settings.database, function(err, data){
     var offers = JSON.parse(data);
     res.status(200).send(offers.offers);
   });
 });
-
-app.get('/offers/:offerID', function(req,res){
-    fs.readFile('database.json', function(err, data){
-        var offer = JSON.parse(data);
-      
-        for(var i = 0; i < offer.offers.length; i++ ){
-            if(offer.offers[i].id == req.params.offerID){                
-                res.status(200).send(offer.offers[i]);  
-            }
-        }
-    });
-});
-
-
+// POST /offers
 app.post('/offers', bodyParser.json(), function(req, res){
-    fs.readFile('database.json', function(err, data){
-      var offer = JSON.parse(data);
-    
-      
-      offer.offers.push({
-          "id": offer.offers.length,
-          "name": JSON.stringify(req.body.name),
-          "description": JSON.stringify(req.body.description)
-      });
-      
-      fs.writeFile("database.json", JSON.stringify(offer, null, 2));
+  fs.readFile(settings.database, function(err, data){
+    var offer = JSON.parse(data);
+    offer.offers.push({
+      "id": offer.offers.length,
+      "name": JSON.stringify(req.body.name),
+      "description": JSON.stringify(req.body.description)
+    });
+    fs.writeFile(settings.database, JSON.stringify(offer, null, 2));
   });
-    res.status(201).send("Offer erfolgreich gespeichert!\n");
+  res.status(201).send("Offer erfolgreich gespeichert!\n");
+});
+// GET /:offerID
+app.get('/offers/:offerID', function(req,res){
+  fs.readFile(settings.database, function(err, data){
+    var offer = JSON.parse(data);
+    for(var i = 0; i < offer.offers.length; i++ ){
+      if(offer.offers[i].id == req.params.offerID){
+        res.status(200).send(offer.offers[i]);
+      }
+    }
+  });
+});
+// PUT /:offerID
+app.put('/offers/:offerID', bodyParser.json(), function(req, res){
+  fs.readFile(settings.database, function(err, data){
+    var offer = JSON.parse(data);
+    for(var i = 0; i < offer.offers.length; i++ ){
+      if(offer.offers[i].id == req.params.offerID){
+        offer.offers[i].name = JSON.stringify(req.body.name);
+        offer.offers[i].description = JSON.stringify(req.body.description);
+        fs.writeFile(settings.database, JSON.stringify(offer, null, 2));
+        res.status(200).send("Offer erfolgreich bearbeitet");
+      }
+    }
+  });
+});
+// DELETE /:offerID
+app.delete('/offers/:offerID', function(req, res){
 
 });
-
 
 app.listen(settings.port, function(){
   console.log("Dienstgeber läuft auf Port " + settings.port + ".");
