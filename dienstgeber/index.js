@@ -25,26 +25,39 @@ app.get('/', function(req, res){
 });
 
 // User Methoden
-app.get('/user', function(req, res){
+app.get('/users', function(req, res){
   fs.readFile('database.json', function(err, data){
     var user = JSON.parse(data);
-    res.status(200).send(user.user);
+    res.status(200).send(user.users);
   });
 });
 
 
-app.get('/user/:userID')
+app.get('/users/:userID', function(req,res){
+    fs.readFile('database.json', function(err, data){
+        var user = JSON.parse(data);
+        //res.status(200).send(user.user);
+        var result = "";
+
+        for(var i = 0; i < user.users.length; i++ ){
+            if(user.users[i].id == req.params.userID){                
+                res.status(200).send(user.users[i]);  
+            }
+        }
+    });
+});
 
 
-app.post('/user', bodyParser.json(), function(req, res){
+
+app.post('/users', bodyParser.json(), function(req, res){
     console.log(req.body);
     
   fs.readFile('database.json', function(err, data){
       var user = JSON.parse(data);
     
       
-      user.user.push({
-          "id": user.user.length,
+      user.users.push({
+          "id": user.users.length,
           "vorname": JSON.stringify(req.body.vorname),
           "nachname": JSON.stringify(req.body.nachname)
       });
@@ -55,12 +68,25 @@ app.post('/user', bodyParser.json(), function(req, res){
 });
 
 
+
 // Offer Methoden
 app.get('/offers', function(req, res){
   fs.readFile('database.json', function(err, data){
     var offers = JSON.parse(data);
     res.status(200).send(offers.offers);
   });
+});
+
+app.get('/offers/:offerID', function(req,res){
+    fs.readFile('database.json', function(err, data){
+        var offer = JSON.parse(data);
+      
+        for(var i = 0; i < offer.offers.length; i++ ){
+            if(offer.offers[i].id == req.params.offerID){                
+                res.status(200).send(offer.offers[i]);  
+            }
+        }
+    });
 });
 
 

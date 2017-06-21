@@ -1,10 +1,4 @@
 {
-  "user": [],
-  "offers": [
-    {
-      "id": 0,
-      "name": "\"Nimbus 2000\"",
-      "description": "\"Der Nimbus 2000 ist ein Zauberbesen\""
-    }
-  ]
+  "users": [],
+  "offers": []
 }
