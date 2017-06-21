@@ -1,28 +1,41 @@
 {
   "users": [
     {
-      "id": 0
-    },
-    {
-      "id": 1,
-      "vorname": "\"Philip\"",
-      "nachname": "\"Lutz\""
-    },
-    {
       "id": 2,
       "vorname": "\"Aziz\"",
       "nachname": "\"Hassini\""
+    },
+    {
+      "id": 3,
+      "vorname": "\"aziz\"",
+      "nachname": "\"sdfsdfja\""
     }
   ],
   "offers": [
     {
-      "id": 0,
-      "name": "\"Nimbus 2000\"",
-      "description": "\"bla bla bla\""
+      "id": 1,
+      "name": "\"Sami\"",
+      "description": "\"ja\""
     },
     {
-      "id": 1,
-      "name": "\"Staubsauger\""
+      "id": 2,
+      "name": "\"Rene\"",
+      "description": "\"sdfsdfja\""
+    },
+    {
+      "id": 4,
+      "name": "\"hasnna\"",
+      "description": "\"sdfsdfja\""
+    },
+    {
+      "id": 5,
+      "name": "\"anna\"",
+      "description": "\"sdfsdfja\""
+    },
+    {
+      "id": 6,
+      "name": "\"aziz\"",
+      "description": "\"sdfsdfja\""
     }
   ]
 }
