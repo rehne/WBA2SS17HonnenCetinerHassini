@@ -2,7 +2,6 @@ var fs = require('fs');
 var express = require('express');
 var bodyParser=require('body-parser');
 
-
 var app = express();
 app.use(bodyParser.json());
 
@@ -10,7 +9,6 @@ const settings = {
   port: 3000,
   database: './database.json'
 };
-
 
 app.use(function(err, req, res, next){
   console.log(err.stack);
@@ -26,9 +24,7 @@ app.get('/', function(req, res){
   res.status(200).send('Hello World!');
 });
 
-/*
- * User Methoden
- */
+/* User Methoden */
 // GET /users
 app.get('/users', function(req, res){
   fs.readFile(settings.database, function(err, data){
@@ -38,23 +34,20 @@ app.get('/users', function(req, res){
 });
 // POST /users
 app.post('/users', bodyParser.json(), function(req, res){
-
   fs.readFile(settings.database, function(err, data){
     var user = JSON.parse(data);
     var counter = 0;
-    
     for(var i = 0; i < user.users.length; i++){
-    	if(user.users[i].id > counter) counter = user.users[i].id
+    	if(user.users[i].id > counter){
+        counter = user.users[i].id;
+      }
     }
-
-
     user.users.push({
       "id": ++counter,
       "vorname": JSON.stringify(req.body.vorname),
       "nachname": JSON.stringify(req.body.nachname)
     });
-   
-      fs.writeFile(settings.database, JSON.stringify(user, null, 2));
+    fs.writeFile(settings.database, JSON.stringify(user, null, 2));
   });
   res.status(201).send("User erfolgreich gespeichert!\n");
 });
@@ -62,7 +55,7 @@ app.post('/users', bodyParser.json(), function(req, res){
 app.get('/users/:userID', function(req,res){
   fs.readFile(settings.database, function(err, data){
     var user = JSON.parse(data);
-    for(var i = 0; i < user.users.length; i++ ){
+    for(var i = 0; i < user.users.length; i++){
       if(user.users[i].id == req.params.userID){
         res.status(200).send(user.users[i]);
       }
@@ -87,22 +80,17 @@ app.put('/users/:userID', bodyParser.json(), function(req, res){
 app.delete('/users/:userID', function(req, res){
 	fs.readFile(settings.database, function(err, data){
     var user = JSON.parse(data);
-
     for(var i = 0; i < user.users.length; i++ ){
-      	if(user.users[i].id == req.params.userID){
-      		user.users.splice(i,1);
-        	
-        	fs.writeFile(settings.database, JSON.stringify(user, null, 2));
-        	res.status(204).send("User erfolgreich gelöscht");
+    	if(user.users[i].id == req.params.userID){
+    		user.users.splice(i, 1);
+      	fs.writeFile(settings.database, JSON.stringify(user, null, 2));
+      	res.status(204).send("User erfolgreich gelöscht");
     	}
-	}
+    }
 	});
-
 });
 
-/*
- * Offer Methoden
- */
+/* Offer Methoden */
 // GET /offers
 app.get('/offers', function(req, res){
   fs.readFile(settings.database, function(err, data){
@@ -115,7 +103,7 @@ app.post('/offers', bodyParser.json(), function(req, res){
   fs.readFile(settings.database, function(err, data){
     var offer = JSON.parse(data);
     var counter = 0;
-    
+
     for(var i = 0; i < offer.offers.length; i++){
     	if(offer.offers[i].id > counter) counter = offer.offers[i].id
     }
@@ -156,18 +144,15 @@ app.put('/offers/:offerID', bodyParser.json(), function(req, res){
 });
 // DELETE /:offerID
 app.delete('/offers/:offerID', function(req, res){
-
   fs.readFile(settings.database, function(err, data){
     var offer = JSON.parse(data);
-
     for(var i = 0; i < offer.offers.length; i++ ){
-      	if(offer.offers[i].id == req.params.offerID){
-      		offer.offers.splice(i,1);
-        	
-        	fs.writeFile(settings.database, JSON.stringify(offer, null, 2));
-        	res.status(204).send("Offer erfolgreich gelöscht");
+    	if(offer.offers[i].id == req.params.offerID){
+    		offer.offers.splice(i,1);
+      	fs.writeFile(settings.database, JSON.stringify(offer, null, 2));
+      	res.status(204).send("Offer erfolgreich gelöscht");
     	}
-	}
+	   }
 	});
 });
 
