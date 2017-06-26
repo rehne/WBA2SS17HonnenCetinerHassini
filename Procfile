@@ -1,1 +1,1 @@
-web: node dienstgeber/index.js
+web: node index.js
