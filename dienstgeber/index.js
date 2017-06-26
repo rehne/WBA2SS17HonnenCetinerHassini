@@ -6,7 +6,7 @@ var app = express();
 app.use(bodyParser.json());
 
 const settings = {
-  port: 3000,
+  port: process.env.PORT || 3000,
   database: './database.json'
 };
 
@@ -103,11 +103,9 @@ app.post('/offers', bodyParser.json(), function(req, res){
   fs.readFile(settings.database, function(err, data){
     var offer = JSON.parse(data);
     var counter = 0;
-
     for(var i = 0; i < offer.offers.length; i++){
     	if(offer.offers[i].id > counter) counter = offer.offers[i].id
     }
-
     offer.offers.push({
       "id": ++counter,
       "name": JSON.stringify(req.body.name),
