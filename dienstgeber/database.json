@@ -1,41 +1,10 @@
 {
   "users": [
     {
-      "id": 2,
+      "id": 1,
       "vorname": "\"Aziz\"",
       "nachname": "\"Hassini\""
-    },
-    {
-      "id": 3,
-      "vorname": "\"aziz\"",
-      "nachname": "\"sdfsdfja\""
     }
   ],
-  "offers": [
-    {
-      "id": 1,
-      "name": "\"Sami\"",
-      "description": "\"ja\""
-    },
-    {
-      "id": 2,
-      "name": "\"Rene\"",
-      "description": "\"sdfsdfja\""
-    },
-    {
-      "id": 4,
-      "name": "\"hasnna\"",
-      "description": "\"sdfsdfja\""
-    },
-    {
-      "id": 5,
-      "name": "\"anna\"",
-      "description": "\"sdfsdfja\""
-    },
-    {
-      "id": 6,
-      "name": "\"aziz\"",
-      "description": "\"sdfsdfja\""
-    }
-  ]
+  "offers": []
 }
