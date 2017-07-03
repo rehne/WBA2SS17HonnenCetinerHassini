@@ -1,0 +1,24 @@
+{
+  "name": "loanme_dn",
+  "version": "1.0.0",
+  "description": "Hier wird in Kürze der Dienstnutzer implementiert..",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Sami Hassini, Aziz Cetiner, René Honnen",
+  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rehne/WBA2SS17HonnenCetinerHassini.git"
+  },
+  "bugs": {
+    "url": "https://github.com/rehne/WBA2SS17HonnenCetinerHassini/issues"
+  },
+  "homepage": "https://github.com/rehne/WBA2SS17HonnenCetinerHassini#readme",
+  "dependencies": {
+    "faye": "^1.2.4",
+    "request": "^2.81.0",
+    "socket.io": "^2.0.3"
+  }
+}
