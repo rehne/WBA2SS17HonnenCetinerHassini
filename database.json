@@ -2,8 +2,21 @@
   "users": [
     {
       "id": 1,
-      "vorname": "\"Aziz\"",
-      "nachname": "\"Hassini\""
+      "vorname": "Sami",
+      "nachname": "Hassini",
+      "benutzername": "samini"
+    },
+    {
+      "id": 2,
+      "vorname": "Aziz",
+      "nachname": "Cetiner",
+      "benutzername": "aziz"
+    },
+    {
+      "id": 3,
+      "vorname": "Rene",
+      "nachname": "Honnen",
+      "benutzername": "rehne"
     }
   ],
   "offers": []

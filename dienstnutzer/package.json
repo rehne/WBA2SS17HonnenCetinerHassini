@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/rehne/WBA2SS17HonnenCetinerHassini#readme",
   "dependencies": {
+    "express": "^4.15.3",
     "faye": "^1.2.4",
     "request": "^2.81.0",
     "socket.io": "^2.0.3"
