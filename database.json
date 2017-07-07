@@ -11,14 +11,17 @@
       "vorname": "Sami",
       "nachname": "Hassini",
       "benutzername": "SamiNo"
+    },
+    {
+      "id": 4
     }
   ],
   "offers": [
     {
       "id": 1,
-      "name": "Rene",
-      "description": "Honnen",
-      "category": "Film",
+      "name": "Dexter",
+      "description": "Film",
+      "category": "blueray",
       "status": true,
       "userID": "2"
     },
@@ -37,20 +40,15 @@
       "category": "Film",
       "status": true,
       "userID": "1"
-    }
-  ],
-  "current_offers": [
-    {
-      "name": "Rene",
-      "description": "Honnen",
-      "category": "Film",
-      "status": true
     },
     {
-      "name": "Besne",
-      "description": "as",
-      "category": "Film",
-      "status": true
+      "id": 4,
+      "name": "Herr der Ringe",
+      "description": "Film",
+      "category": "blueray",
+      "status": true,
+      "userID": "1"
     }
-  ]
+  ],
+  "current_offers": []
 }

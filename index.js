@@ -40,8 +40,8 @@ app.post('/users', bodyParser.json(), function(req, res){
     var user = JSON.parse(data);
     var max_index = 0;
     var current_i = user.users.length;
-		
-		// id of the last user is inserted into max_index
+    
+    // id of the last user is inserted into max_index
     for(var i = 0; i < user.users.length; i++){
       if(user.users[i].id > max_index){
         max_index = user.users[i].id;
@@ -74,12 +74,12 @@ app.get('/users/:userID', function(req,res){
   fs.readFile(settings.database, function(err, data){
     var user = JSON.parse(data);
     var  current_i = user.users.length;
-		
-		//if current_offers are not empty clear current_offers to avoid duplicated offers
-		if(user.current_offers.length > 0){
-		user.current_offers.splice(0, user.current_offers.length);
+    
+    //if current_offers are not empty clear current_offers to avoid duplicated offers
+    if(user.current_offers.length > 0){
+    user.current_offers.splice(0, user.current_offers.length);
       fs.writeFile(settings.database, JSON.stringify(user, null, 2));
-		}
+    }
 
     //Find the position of the searched user and save it in current_i
     for(var i = 0; i < user.users.length; i++ ){
@@ -90,25 +90,25 @@ app.get('/users/:userID', function(req,res){
 
     //if current_i is already the same like number of the users, there are no user found. is current_i not the same, assign the offers to the users and print the user with his offers
     if(current_i < user.users.length){
-			for(var i = 0; i< user.offers.length; i++){
-				if(user.users[current_i].id == user.offers[i].userID){
-					user.current_offers.push({
-      				"name": user.offers[i].name,
-      				"description": user.offers[i].description,
-							"category": user.offers[i].category,
-							"status" : user.offers[i].status
-    				});
-					
-				}
-			}
-			fs.writeFile(settings.database, JSON.stringify(user, null, 2));
-			var ausgabe = { "user" : user.users[current_i],
-										 "offers" : user.current_offers
-				
-			};
+      for(var i = 0; i< user.offers.length; i++){
+        if(user.users[current_i].id == user.offers[i].userID){
+          user.current_offers.push({
+              "name": user.offers[i].name,
+              "description": user.offers[i].description,
+              "category": user.offers[i].category,
+              "status" : user.offers[i].status
+            });
+          
+        }
+      }
+      fs.writeFile(settings.database, JSON.stringify(user, null, 2));
+      var ausgabe = { "user" : user.users[current_i],
+                     "offers" : user.current_offers
+        
+      };
       res.status(200).send(ausgabe);
     } 
-		else {
+    else {
       res.status(404).send("User NOT FOUND");
     }
   });
@@ -177,13 +177,13 @@ app.post('/offers', bodyParser.json(), function(req, res){
     //add a new offer
     offer.offers.push({
       "id": ++max_index,
-    	"name": req.body.name,
-			"description": req.body.description,
-			"category" : req.body.category,
-			"status" : true,
-     	"userID": req.body.userID
+      "name": req.body.name,
+      "description": req.body.description,
+      "category" : req.body.category,
+      "status" : true,
+      "userID": req.body.userID
     });
-		
+    
     
     fs.writeFile(settings.database, JSON.stringify(offer, null, 2));
   });
@@ -219,8 +219,8 @@ app.put('/offers/:offerID', bodyParser.json(), function(req, res){
       if(offer.offers[i].id == req.params.offerID){
         offer.offers[i].name = req.body.name;
         offer.offers[i].description = req.body.description;
-				offer.offers[i].category = req.body.category;
-				offer.offers[i].status = true;
+        offer.offers[i].category = req.body.category;
+        offer.offers[i].status = true;
         fs.writeFile(settings.database, JSON.stringify(offer, null, 2));
         res.status(200).send("Offer erfolgreich bearbeitet");
       }
@@ -257,40 +257,40 @@ app.get('/offers/category/:category', function(req,res){
   fs.readFile(settings.database, function(err, data){
     var offer = JSON.parse(data);
     var current_i = offer.offers.length;
-		var count = 0;
-		
-		//if current_offers are not empty clear current_offers to avoid duplicated offers, if current_offers is already empty, send error
-		if(offer.current_offers.length > 0){
-		offer.current_offers.splice(0, offer.current_offers.length);
+    var count = 0;
+    
+    //if current_offers are not empty clear current_offers to avoid duplicated offers, if current_offers is already empty, send error
+    if(offer.current_offers.length > 0){
+    offer.current_offers.splice(0, offer.current_offers.length);
       fs.writeFile(settings.database, JSON.stringify(offer, null, 2));
-		}
-		
-		
-		else if(offer.offers.length == 0){
-			res.status(404).send("No offers found");
-		}
-		
+    }
+    
+    
+    else if(offer.offers.length == 0){
+      res.status(404).send("No offers found");
+    }
+    
     //Find the offers with the searched category and save it in current_offers. if there is an offer with the searched category Count++. after loop check count. if count is already 0, send error. if count > 0 there are offers with the searched category. send them
     for(var i = 0; i < offer.offers.length; i++ ){
       if(offer.offers[i].category == req.params.category){
         offer.current_offers.push({
-      				"name": offer.offers[i].name,
-      				"description": offer.offers[i].description,
-							"category": offer.offers[i].category,
-							"status" : offer.offers[i].status
-    		});
-				count++;
-			}
-		}
-		if(count > 0){
-			fs.writeFile(settings.database, JSON.stringify(offer, null, 2));
-     	res.status(200).send(offer.current_offers);
-		}
-		else {
-     	res.status(404).send("Category NOT FOUND");
+              "name": offer.offers[i].name,
+              "description": offer.offers[i].description,
+              "category": offer.offers[i].category,
+              "status" : offer.offers[i].status
+        });
+        count++;
+      }
+    }
+    if(count > 0){
+      fs.writeFile(settings.database, JSON.stringify(offer, null, 2));
+      res.status(200).send(offer.current_offers);
+    }
+    else {
+      res.status(404).send("Category NOT FOUND");
     }
     
-		
+    
   });
 });
 
