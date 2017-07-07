@@ -2,22 +2,55 @@
   "users": [
     {
       "id": 1,
-      "vorname": "Sami",
-      "nachname": "Hassini",
-      "benutzername": "samini"
-    },
-    {
-      "id": 2,
-      "vorname": "Aziz",
-      "nachname": "Cetiner",
-      "benutzername": "aziz"
-    },
-    {
-      "id": 3,
       "vorname": "Rene",
       "nachname": "Honnen",
       "benutzername": "rehne"
+    },
+    {
+      "id": 2,
+      "vorname": "Sami",
+      "nachname": "Hassini",
+      "benutzername": "SamiNo"
     }
   ],
-  "offers": []
+  "offers": [
+    {
+      "id": 1,
+      "name": "Rene",
+      "description": "Honnen",
+      "category": "Film",
+      "status": true,
+      "userID": "2"
+    },
+    {
+      "id": 2,
+      "name": "Besne",
+      "description": "as",
+      "category": "Film",
+      "status": true,
+      "userID": "2"
+    },
+    {
+      "id": 3,
+      "name": "Renase",
+      "description": "Hoasdnnen",
+      "category": "Film",
+      "status": true,
+      "userID": "1"
+    }
+  ],
+  "current_offers": [
+    {
+      "name": "Rene",
+      "description": "Honnen",
+      "category": "Film",
+      "status": true
+    },
+    {
+      "name": "Besne",
+      "description": "as",
+      "category": "Film",
+      "status": true
+    }
+  ]
 }
