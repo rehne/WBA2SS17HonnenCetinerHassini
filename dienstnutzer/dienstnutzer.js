@@ -39,7 +39,7 @@ app.post('/users',bodyParser.json(), function(req, res){
         "longitude": response.json.results[0].geometry.location.lng
       };
       var options = {
-        uri : url,
+        uri: url,
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
@@ -72,8 +72,8 @@ app.put('/users/:userID', bodyParser.json(), function(req, res){
 	var userID = req.params.userID;
 	var url = dUrl + '/users/' + userID;
 	var userDataNew = {
-		"vorname": req.body.vorname,
-    "nachname": req.body.nachname
+		"prename": req.body.prename,
+    "name": req.body.name
 	};
 	var options = {
 		uri : url,
@@ -84,20 +84,17 @@ app.put('/users/:userID', bodyParser.json(), function(req, res){
 		json: userDataNew
 	}
 
-	// publish 
-/*
-		client.publish('/news', { text: 'Test yo'})
-		.then(function() {
+  // publish
+  /*
+  client.publish('/news', { text: 'Test yo'})
+  .then(function() {
 
-				console.log('Message received by server!');
-		}, function(error) {
+  		console.log('Message received by server!');
+  }, function(error) {
 
-			console.log('there was an error publishing: ' + error.message);
-		});
-*/
-
-
-
+  	console.log('there was an error publishing: ' + error.message);
+  });
+  */
 
 	request(options, function(err, response, body){
 		res.json(body);
@@ -105,15 +102,14 @@ app.put('/users/:userID', bodyParser.json(), function(req, res){
 });
 
 // DELETE /userID
-		app.delete('/users/:userID', function(req, res){
+app.delete('/users/:userID', function(req, res){
 
-			var userID = req.params.userID;
-			var url = dUrl + '/users/' + userID;
+	var userID = req.params.userID;
+	var url = dUrl + '/users/' + userID;
 
-			request.delete(url, function(err, response, body){
-			});
-		});
-
+	request.delete(url, function(err, response, body){
+	});
+});
 
 // OFFER REQUESTS
 
@@ -186,30 +182,27 @@ app.put('/offers/:offerID', bodyParser.json(), function(req, res){
 });
 
 // DELETE /offerID
-		app.delete('/offers/:offerID', function(req, res){
+app.delete('/offers/:offerID', function(req, res){
 
-			var offerID = req.params.offerID;
-			var url = dUrl + '/offers/' + offerID;
+	var offerID = req.params.offerID;
+	var url = dUrl + '/offers/' + offerID;
 
-			
-			request.delete(url, function(err, response, body){
-			}); 
-		});
 
-		// GET /category
+	request.delete(url, function(err, response, body){
+	});
+});
+
+// GET /category
 app.get('/offers/category/:category', function(req, res){
+	var categoryType = req.params.category;
 
-		var categoryType = req.params.category;
+	var url =  dUrl + '/offers/' + 'category/' + ":" + categoryType;
 
-		var url =  dUrl + '/offers/' + 'category/' + ":" + categoryType;
-
-		request(url, function (err, response, body){
-			body = JSON.parse(body);
-			res.json(body);
-
-		});
-
-}); 
+	request(url, function (err, response, body){
+		body = JSON.parse(body);
+		res.json(body);
+	});
+});
 
 /*
 // ------------- FAYE -----------
@@ -226,8 +219,6 @@ client.subscribe('/news', function(message){
 		console.log(message.text);
 });
 */
-
-
 
 app.listen(3001, function(){
   console.log('Dienstnutzer läuft auf Port 3001.');

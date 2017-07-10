@@ -40,7 +40,7 @@ app.post('/users', bodyParser.json(), function(req, res){
     var user = JSON.parse(data);
     var max_index = 0;
     var current_i = user.users.length;
-    
+
     // id of the last user is inserted into max_index
     for(var i = 0; i < user.users.length; i++){
       if(user.users[i].id > max_index){
@@ -50,7 +50,7 @@ app.post('/users', bodyParser.json(), function(req, res){
 
     // Check if username is already assigned. Print an error or add an new user
     for(var i = 0; i < user.users.length; i++){
-      if(user.users[i].benutzername == req.body.benutzername){
+      if(user.users[i].username == req.body.username){
         current_i = i;
       }
     }
@@ -59,12 +59,14 @@ app.post('/users', bodyParser.json(), function(req, res){
     } else {
       user.users.push({
         "id": ++max_index,
-        "vorname": req.body.vorname,
-        "nachname": req.body.nachname,
-        "benutzername": req.body.benutzername
+        "prename": req.body.prename,
+        "name": req.body.name,
+        "username": req.body.username,
+        "latitude": req.body.latitude,
+        "longitude": req.body.longitude
       });
       fs.writeFile(settings.database, JSON.stringify(user, null, 2));
-      res.status(201).send("User erfolgreich gespeichert!\n");
+      res.status(201).send("Benutzer erfolgreich gespeichert!\n");
     }
   });
 });
@@ -74,7 +76,7 @@ app.get('/users/:userID', function(req,res){
   fs.readFile(settings.database, function(err, data){
     var user = JSON.parse(data);
     var  current_i = user.users.length;
-    
+
     //if current_offers are not empty clear current_offers to avoid duplicated offers
     if(user.current_offers.length > 0){
     user.current_offers.splice(0, user.current_offers.length);
@@ -93,22 +95,20 @@ app.get('/users/:userID', function(req,res){
       for(var i = 0; i< user.offers.length; i++){
         if(user.users[current_i].id == user.offers[i].userID){
           user.current_offers.push({
-              "name": user.offers[i].name,
-              "description": user.offers[i].description,
-              "category": user.offers[i].category,
-              "status" : user.offers[i].status
-            });
-          
+            "name": user.offers[i].name,
+            "description": user.offers[i].description,
+            "category": user.offers[i].category,
+            "status" : user.offers[i].status
+          });
         }
       }
       fs.writeFile(settings.database, JSON.stringify(user, null, 2));
       var ausgabe = { "user" : user.users[current_i],
                      "offers" : user.current_offers
-        
+
       };
       res.status(200).send(ausgabe);
-    } 
-    else {
+    } else {
       res.status(404).send("User NOT FOUND");
     }
   });
@@ -121,8 +121,8 @@ app.put('/users/:userID', bodyParser.json(), function(req, res){
     //find the searched user and edit his attribute
     for(var i = 0; i < user.users.length; i++ ){
       if(user.users[i].id == req.params.userID){
-        user.users[i].vorname = req.body.vorname;
-        user.users[i].nachname = req.body.nachname;
+        user.users[i].prename = req.body.prename;
+        user.users[i].name = req.body.name;
         fs.writeFile(settings.database, JSON.stringify(user, null, 2));
         res.status(200).send("User erfolgreich bearbeitet");
       }
@@ -183,8 +183,6 @@ app.post('/offers', bodyParser.json(), function(req, res){
       "status" : true,
       "userID": req.body.userID
     });
-    
-    
     fs.writeFile(settings.database, JSON.stringify(offer, null, 2));
   });
   res.status(201).send("Offer erfolgreich gespeichert!\n");
@@ -251,33 +249,29 @@ app.delete('/offers/:offerID', function(req, res){
   });
 });
 
-
 //GET /:category
 app.get('/offers/category/:category', function(req,res){
   fs.readFile(settings.database, function(err, data){
     var offer = JSON.parse(data);
     var current_i = offer.offers.length;
     var count = 0;
-    
+
     //if current_offers are not empty clear current_offers to avoid duplicated offers, if current_offers is already empty, send error
     if(offer.current_offers.length > 0){
     offer.current_offers.splice(0, offer.current_offers.length);
       fs.writeFile(settings.database, JSON.stringify(offer, null, 2));
-    }
-    
-    
-    else if(offer.offers.length == 0){
+    } else if(offer.offers.length == 0){
       res.status(404).send("No offers found");
     }
-    
+
     //Find the offers with the searched category and save it in current_offers. if there is an offer with the searched category Count++. after loop check count. if count is already 0, send error. if count > 0 there are offers with the searched category. send them
     for(var i = 0; i < offer.offers.length; i++ ){
       if(offer.offers[i].category == req.params.category){
         offer.current_offers.push({
-              "name": offer.offers[i].name,
-              "description": offer.offers[i].description,
-              "category": offer.offers[i].category,
-              "status" : offer.offers[i].status
+          "name": offer.offers[i].name,
+          "description": offer.offers[i].description,
+          "category": offer.offers[i].category,
+          "status" : offer.offers[i].status
         });
         count++;
       }
@@ -285,16 +279,11 @@ app.get('/offers/category/:category', function(req,res){
     if(count > 0){
       fs.writeFile(settings.database, JSON.stringify(offer, null, 2));
       res.status(200).send(offer.current_offers);
-    }
-    else {
+    } else {
       res.status(404).send("Category NOT FOUND");
     }
-    
-    
   });
 });
-
-
 
 app.listen(settings.port, function(){
   console.log("Dienstgeber läuft auf Port " + settings.port + ".");

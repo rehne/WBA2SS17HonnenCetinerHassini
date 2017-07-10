@@ -13,7 +13,28 @@
       "benutzername": "SamiNo"
     },
     {
-      "id": 4
+      "id": 3,
+      "prename": "Daniel",
+      "name": "Lutz",
+      "username": "lurchi",
+      "latitude": 51.37296,
+      "longitude": 6.25496
+    },
+    {
+      "id": 4,
+      "prename": "Philip",
+      "name": "Schneickert",
+      "username": "piep",
+      "latitude": 51.3909748,
+      "longitude": 6.262366999999999
+    },
+    {
+      "id": 5,
+      "prename": "Jan",
+      "name": "Stienen",
+      "username": "stino",
+      "latitude": 51.3847079,
+      "longitude": 6.2450154
     }
   ],
   "offers": [
@@ -38,14 +59,6 @@
       "name": "Renase",
       "description": "Hoasdnnen",
       "category": "Film",
-      "status": true,
-      "userID": "1"
-    },
-    {
-      "id": 4,
-      "name": "Herr der Ringe",
-      "description": "Film",
-      "category": "blueray",
       "status": true,
       "userID": "1"
     }
