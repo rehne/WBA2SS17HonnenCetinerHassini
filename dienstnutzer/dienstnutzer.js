@@ -3,6 +3,7 @@ var express = require('express');
 var request = require('request');
 var app = express();
 var bodyParser = require('body-parser');
+var faye = require('faye');
 
 var googleMapsClient = require('@google/maps').createClient({
   key: 'AIzaSyDX3b5xS8GIcn3SlA2Pfpvl0-S5Fnqh8BM'
@@ -82,21 +83,37 @@ app.put('/users/:userID', bodyParser.json(), function(req, res){
 		},
 		json: userDataNew
 	}
+
+	// publish 
+/*
+		client.publish('/news', { text: 'Test yo'})
+		.then(function() {
+
+				console.log('Message received by server!');
+		}, function(error) {
+
+			console.log('there was an error publishing: ' + error.message);
+		});
+*/
+
+
+
+
 	request(options, function(err, response, body){
 		res.json(body);
 	});
 });
 
-/*app.delete('/users/:userID', function(req, res){
-	var userID = req.params.userID;
-	var url = dHost + ':' + dPort + '/users/' + userID;
+// DELETE /userID
+		app.delete('/users/:userID', function(req, res){
 
-	//helper method used
-	request.delete(url, function(err, response, body){
-		body = JSON.parse(body);
-		res.json(body);
-	});
-});*/
+			var userID = req.params.userID;
+			var url = dUrl + '/users/' + userID;
+
+			request.delete(url, function(err, response, body){
+			});
+		});
+
 
 // OFFER REQUESTS
 
@@ -168,15 +185,49 @@ app.put('/offers/:offerID', bodyParser.json(), function(req, res){
 	});
 });
 
-// GET /category
-/* app.get('/offers/category/:category', function(req, res){
-	var categoryType = req.params.category;
-	var url =  dHost + ':' + dPort + '/offers/' + 'category/' + categoryType;
-	request(url, function (err, response, body){
-		body = JSON.parse(body);
-		res.json(body);
-	});
-}):*/
+// DELETE /offerID
+		app.delete('/offers/:offerID', function(req, res){
+
+			var offerID = req.params.offerID;
+			var url = dUrl + '/offers/' + offerID;
+
+			
+			request.delete(url, function(err, response, body){
+			}); 
+		});
+
+		// GET /category
+app.get('/offers/category/:category', function(req, res){
+
+		var categoryType = req.params.category;
+
+		var url =  dUrl + '/offers/' + 'category/' + ":" + categoryType;
+
+		request(url, function (err, response, body){
+			body = JSON.parse(body);
+			res.json(body);
+
+		});
+
+}); 
+
+/*
+// ------------- FAYE -----------
+
+var fayeserver = new faye.NodeAdapter({
+		mount : '/faye',
+		timeout : 45
+});
+
+fayeserver.attach(app);
+
+var client = new faye.Client('http://localhost:3001/faye');
+client.subscribe('/news', function(message){
+		console.log(message.text);
+});
+*/
+
+
 
 app.listen(3001, function(){
   console.log('Dienstnutzer läuft auf Port 3001.');
