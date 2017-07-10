@@ -1,0 +1,15 @@
+var http = require ('http'),
+	faye = require ('faye');
+
+	var server = http.createServer();
+
+	//creating node adapter
+
+	var fayeservice = new faye.NodeAdapter({
+		mount: '/faye'
+		timeout : 45
+	});
+
+	fayeservice.attach(server);
+
+	

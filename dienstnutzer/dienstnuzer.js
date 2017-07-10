@@ -3,6 +3,7 @@ var express = require('express');
 var request = require('request');
 var app = express();
 var bodyParser = require('body-parser');
+var faye = require('faye');
 
 var dHost = 'http://localhost';
 var dPort = 3000;
@@ -82,6 +83,18 @@ app.put('/users/:userID', bodyParser.json(), function(req, res){
 		json: userDataNew
 	}
 
+	// publish 
+/*
+		client.publish('/news', { text: 'Test yo'})
+		.then(function() {
+
+				console.log('Message received by server!');
+		}, function(error) {
+
+			console.log('there was an error publishing: ' + error.message);
+		});
+*/
+
 	request(options, function(err, response, body){
 			body = JSON.parse(body);
 			res.json(body);
@@ -129,6 +142,7 @@ app.post('/offers', bodyParser.json(), function(req, res){
 		method: 'POST',
 		headers: {
 			'Content-Type': 'application/json'
+
 		},
 		json: offerData
 	}
@@ -175,6 +189,7 @@ app.put('/offers/:offerID', bodyParser.json(), function(req, res){
 		json: offerDataNew
 	}
 
+
 	request(options, function(err, response, body){
 			body = JSON.parse(body);
 			res.json(body);
@@ -207,6 +222,22 @@ app.get('/offers/category/:category', function(req, res){
 		})
 
 }) 
+
+/*
+// ------------- FAYE -----------
+
+var fayeserver = new faye.NodeAdapter({
+		mount : '/faye',
+		timeout : 45
+});
+
+fayeserver.attach(app);
+
+var client = new faye.Client('http://localhost:3001/faye');
+client.subscribe('/news', function(message){
+		console.log(message.text);
+});
+*/
 
 app.listen(3001, function(){
   console.log('Dienstnutzer läuft auf Port 3001.');
