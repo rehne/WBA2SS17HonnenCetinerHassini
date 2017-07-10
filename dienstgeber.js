@@ -62,6 +62,7 @@ app.post('/users', bodyParser.json(), function(req, res){
         "prename": req.body.prename,
         "name": req.body.name,
         "username": req.body.username,
+				"address": req.body.address,
         "latitude": req.body.latitude,
         "longitude": req.body.longitude
       });
