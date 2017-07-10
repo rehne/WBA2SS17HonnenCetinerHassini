@@ -194,11 +194,11 @@ app.put('/offers/:offerID', bodyParser.json(), function(req, res){
 		});
 
 		// GET /category
-/*app.get('/offers/category/:category', function(req, res){
+app.get('/offers/category/:category', function(req, res){
 
 		var categoryType = req.params.category;
 
-		var url =  dHost + ':' + dPort + '/offers/' + 'category/' + categoryType;
+		var url =  dUrl + '/offers/' + 'category/' + ":" + categoryType;
 
 		request(url, function (err, response, body){
 			body = JSON.parse(body);
@@ -206,8 +206,7 @@ app.put('/offers/:offerID', bodyParser.json(), function(req, res){
 
 		})
 
-}) */
-
+}) 
 
 app.listen(3001, function(){
   console.log('Dienstnutzer läuft auf Port 3001.');
