@@ -43,7 +43,7 @@ app.post('/users/',bodyParser.json(), function(req, res){
 
 	request(options, function(err, response, body){
 			
-		res.json(body); 	
+			res.json(body); 	
 	});
 
 });
@@ -83,23 +83,20 @@ app.put('/users/:userID', bodyParser.json(), function(req, res){
 	}
 
 	request(options, function(err, response, body){
-		
+			body = JSON.parse(body);
 			res.json(body);
 	});
 });
-
-		/*app.delete('/users/:userID', function(req, res){
+		// DELETE /userID
+		app.delete('/users/:userID', function(req, res){
 
 			var userID = req.params.userID;
-			var url = dHost + ':' + dPort + '/users/' + userID;
+			var url = dUrl + '/users/' + userID;
 
-			//helper method used
+			
 			request.delete(url, function(err, response, body){
-				body = JSON.parse(body);
-				res.json(body);
-
 			});
-		});*/
+		});
 
 						// OFFER REQUESTS
 		
@@ -137,7 +134,7 @@ app.post('/offers', bodyParser.json(), function(req, res){
 	}
 
 	request(options, function(err, response, body){
-		
+			body = JSON.parse(body);
 			res.json(body);
 	});
 });
@@ -148,7 +145,7 @@ app.get('/offers/:offerID', function (req, res){
 	var offerID = req.params.offerID;
 	var url = dUrl+ '/offers/' + offerID;
 
-	//helper method used
+	
 	request.get(url, function(err, response, body){
 		body = JSON.parse(body);
 		res.json(body);
@@ -179,10 +176,22 @@ app.put('/offers/:offerID', bodyParser.json(), function(req, res){
 	}
 
 	request(options, function(err, response, body){
+			body = JSON.parse(body);
 			res.json(body);
 	});
 });
 
+
+	// DELETE /offerID
+		app.delete('/offers/:offerID', function(req, res){
+
+			var offerID = req.params.offerID;
+			var url = dUrl + '/offers/' + offerID;
+
+			
+			request.delete(url, function(err, response, body){
+			}); 
+		});
 
 		// GET /category
 /*app.get('/offers/category/:category', function(req, res){
