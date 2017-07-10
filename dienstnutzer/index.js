@@ -2,7 +2,6 @@ var http = require('http');
 var express = require('express');
 var request = require('request');
 var app = express();
-var bodyParser = require('body-parser');
 
 var dHost = 'http://localhost';
 var dPort = 3000;
@@ -22,14 +21,14 @@ app.get('/users', function(req, res){
 });
 	
 		// POST /users
-app.post('/users/',bodyParser.json(), function(req, res){
+app.post('/users/', function(req, res){
 
-	var url = dUrl + '/users';
+	var url = dHost + ':' + dPort + '/users/';
 
 	var userData = {
-		"vorname": req.body.vorname,
-        "nachname": req.body.nachname,
-        "benutzername": req.body.benutzername
+		"vorname": "Aziz",
+        "nachname": "Cetiner",
+        "benutzername": "acetiner"
 	};
 
 	var options = {
@@ -49,10 +48,10 @@ app.post('/users/',bodyParser.json(), function(req, res){
 });
 
 		// GET /userID
-app.get('/users/:userID', bodyParser.json(), function (req, res){
+app.get('/users/:userID', function (req, res){
 
 	var userID = req.params.userID;
-	var url = dUrl + '/users/' + userID;
+	var url = dHost + ':' + dPort + '/users/' + userID;
 
 	//helper method used
 	request.get(url, function(err, response, body){
@@ -63,14 +62,14 @@ app.get('/users/:userID', bodyParser.json(), function (req, res){
 });
 
 			//PUT /userID
-app.put('/users/:userID', bodyParser.json(), function(req, res){
+app.put('/users/:userID', function(req, res){
 
 	var userID = req.params.userID;
-	var url = dUrl + '/users/' + userID;
+	var url = dHost + ':' + dPort + '/users/' + userID;
 
 	var userDataNew = {
-		"vorname": req.body.vorname,
-        "nachname": req.body.nachname
+		"vorname": "Peter",
+        "nachname": "Cetiner"
 	};
 
 	var options = {
@@ -116,15 +115,16 @@ app.get('/offers', function(req,res){
 });
 
 		// POST /offers
-app.post('/offers', bodyParser.json(), function(req, res){
+app.post('/offers', function(req, res){
 
-	var url = dUrl + '/offers';
+	var url = dHost + ':' + dPort + '/offers';
 
 	var offerData = {
-      "name": req.body.name,
-      "description": req.body.description,
-      "category" : req.body.category,
-      "userID": req.body.userID
+      "name": "Herr der Ringe",
+      "description": "Film",
+      "category" : "blueray",
+      "status" : true,
+      "userID": 1
 	}
 
 	var options = {
@@ -146,7 +146,7 @@ app.post('/offers', bodyParser.json(), function(req, res){
 app.get('/offers/:offerID', function (req, res){
 
 	var offerID = req.params.offerID;
-	var url = dUrl+ '/offers/' + offerID;
+	var url = dHost + ':' + dPort + '/offers/' + offerID;
 
 	//helper method used
 	request.get(url, function(err, response, body){
@@ -157,16 +157,17 @@ app.get('/offers/:offerID', function (req, res){
 });
 
 			// PUT /offerID
-app.put('/offers/:offerID', bodyParser.json(), function(req, res){
+app.put('/offers/:offerID', function(req, res){
 
 	var offerID = req.params.offerID;
-	var url = dUrl + '/offers/' + offerID;
+	var url = dHost + ':' + dPort + '/offers/' + offerID;
 
 	var offerDataNew = {
-      "name": req.body.name,
-      "description": req.body.description,
-      "category" : req.body.category,
-      "status" : req.body.status
+      "name": "Dexter",
+      "description": "Film",
+      "category" : "blueray",
+      "status" : true,
+      "userID": 1
 	}
 
 	var options = {
@@ -179,6 +180,7 @@ app.put('/offers/:offerID', bodyParser.json(), function(req, res){
 	}
 
 	request(options, function(err, response, body){
+		
 			res.json(body);
 	});
 });
