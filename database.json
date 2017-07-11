@@ -1,12 +1,33 @@
 {
-  "users": [],
+  "users": [
+    {
+      "id": 1,
+      "prename": "Sami",
+      "name": "Hassini",
+      "username": "SamiNo",
+      "address": "Peter-Michels-Straße 27, 50827 Köln, Germany",
+      "latitude": 50.9713052,
+      "longitude": 6.913827
+    },
+    {
+      "id": 2,
+      "prename": "Rene",
+      "name": "Honnen",
+      "username": "Rehne",
+      "address": "Peter-Michels-Straße 27, 50827 Köln, Germany",
+      "latitude": 50.9713052,
+      "longitude": 6.913827
+    }
+  ],
   "offers": [
     {
       "id": 1,
-      "name": "GTA",
-      "description": "Grand Theft Auto",
-      "category": "Action",
-      "status": true
+      "name": "MacBook Pro",
+      "description": "Laptop",
+      "category": "Elektronik",
+      "status": false,
+      "userID": 1,
+      "imBesitzvonID": 2
     }
   ],
   "current_offers": []

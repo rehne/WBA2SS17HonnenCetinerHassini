@@ -62,10 +62,10 @@ app.post('/users', bodyParser.json(), function(req, res){
         "prename": req.body.prename,
         "name": req.body.name,
         "username": req.body.username,
+				"password": req.body.password,
 				"address": req.body.address,
         "latitude": req.body.latitude,
-        "longitude": req.body.longitude,
-        "address": req.body.address
+        "longitude": req.body.longitude
       });
       fs.writeFile(settings.database, JSON.stringify(user, null, 2));
       res.status(201).send("Benutzer erfolgreich gespeichert!\n");
@@ -184,7 +184,8 @@ app.post('/offers', bodyParser.json(), function(req, res){
       "description": req.body.description,
       "category" : req.body.category,
       "status" : true,
-      "userID": req.body.userID
+      "userID": req.body.userID,
+			"imBesitzvonID": req.body.userID
     });
     fs.writeFile(settings.database, JSON.stringify(offer, null, 2));
   });
@@ -221,7 +222,8 @@ app.put('/offers/:offerID', bodyParser.json(), function(req, res){
         offer.offers[i].name = req.body.name;
         offer.offers[i].description = req.body.description;
         offer.offers[i].category = req.body.category;
-        offer.offers[i].status = true;
+        offer.offers[i].status = req.body.status;
+				offer.offers[i].imBesitzvonID = req.body.imBesitzvonID;
         fs.writeFile(settings.database, JSON.stringify(offer, null, 2));
         res.status(200).send("Offer erfolgreich bearbeitet");
       }

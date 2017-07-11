@@ -53,10 +53,10 @@ app.post('/users',bodyParser.json(), function(req, res){
         "prename": req.body.prename,
         "name": req.body.name,
         "username": req.body.username,
+				"password": req.body.password,
 				"address": response.json.results[0].formatted_address,
         "latitude": response.json.results[0].geometry.location.lat,
-        "longitude": response.json.results[0].geometry.location.lng,
-        "address": response.json.results[0].formatted_address
+        "longitude": response.json.results[0].geometry.location.lng
       };
       var options = {
         uri: url,
@@ -155,7 +155,8 @@ app.post('/offers', bodyParser.json(), function(req, res){
     "name": req.body.name,
     "description": req.body.description,
     "category" : req.body.category,
-    "userID": req.body.userID
+    "userID": req.body.userID,
+		"imBesitzvonID": req.body.userID
 	}
 	var options = {
 		uri : url,
@@ -191,7 +192,8 @@ app.put('/offers/:offerID', bodyParser.json(), function(req, res){
     "name": req.body.name,
     "description": req.body.description,
     "category" : req.body.category,
-    "status" : req.body.status
+    "status" : req.body.status,
+		"imBesitzvonID" : req.body.imBesitzvonID
 	}
 	var options = {
 		uri : url,
@@ -219,6 +221,48 @@ app.delete('/offers/:offerID', function(req, res){
 	});
 });
 
+//GET/status/:offerID
+app.get('/status/:offerID', function(req,res){
+				var offerID = req.params.offerID;
+				var url = dUrl + '/offers/' + offerID;
+				
+				request.get(url, function(err, response, body){
+					if(response.statusCode == 200){
+      			body = JSON.parse(body);
+						if(body.status) res.send("verfügbar");
+						else res.send("verliehen");
+    			}
+    			else(res.json(body));
+				});
+});
+
+//GET/ausleiher/:offerID
+app.get('/ausleiher/:offerID', function(req,res){
+	var offerID = req.params.offerID
+	var url = dUrl + '/offers/' + offerID;
+	
+	request.get(url,function(err,response,body){
+		if(response.statusCode == 200){
+			body = JSON.parse(body);
+			if(body.userID == body.imBesitzvonID || body.status == true) res.send("an niemanden Verliehen");
+			else{
+				var url = dUrl + '/users/' + body.imBesitzvonID;
+				request.get(url,function(err2,response2,body2){ 
+					
+					console.log(body2);
+					res.send( "verliehen an: " + body2.username);
+				
+				
+				});
+				
+			}
+		}
+		else(res.json(body));
+	});
+	
+	
+});
+
 // GET /category
 app.get('/offers/category/:category', function(req, res){
 	var categoryType = req.params.category;
@@ -226,8 +270,10 @@ app.get('/offers/category/:category', function(req, res){
 	var url =  dUrl + '/offers/' + 'category/' + ":" + categoryType;
 
 	request(url, function (err, response, body){
-		body = JSON.parse(body);
-		res.json(body);
+		if(response.statusCode == 200){
+      body = JSON.parse(body);
+    }
+    res.json(body);
 	});
 });
 
