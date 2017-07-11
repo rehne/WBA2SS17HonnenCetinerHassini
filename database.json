@@ -2,56 +2,21 @@
   "users": [
     {
       "id": 1,
-      "vorname": "Rene",
-      "nachname": "Honnen",
-      "benutzername": "rehne"
+      "prename": "Sami",
+      "name": "Hassini",
+      "username": "SamiNo",
+      "address": "Peter-Michels-Straße 27, 50827 Köln, Germany",
+      "latitude": 50.9713052,
+      "longitude": 6.913827
     },
     {
       "id": 2,
-      "vorname": "Sami",
-      "nachname": "Hassini",
-      "benutzername": "SamiNo"
-    },
-    {
-      "id": 3,
-      "prename": "Daniel",
-      "name": "Lutz",
-      "username": "lurchi",
-      "latitude": 51.37296,
-      "longitude": 6.25496
-    },
-    {
-      "id": 4,
-      "prename": "Philip",
-      "name": "Schneickert",
-      "username": "piep",
-      "latitude": 51.3909748,
-      "longitude": 6.262366999999999
-    },
-    {
-      "id": 5,
-      "prename": "Jan",
-      "name": "Stienen",
-      "username": "stino",
-      "latitude": 51.3847079,
-      "longitude": 6.2450154
-    },
-    {
-      "id": 6,
-      "prename": "Jan",
-      "name": "Stienen",
-      "username": "adsf",
-      "latitude": 51.3847079,
-      "longitude": 6.2450154
-    },
-    {
-      "id": 7,
-      "prename": "Jan",
-      "name": "Stienen",
-      "username": "eu",
-      "latitude": 51.3847079,
-      "longitude": 6.2450154,
-      "address": "Liebfrauenweg 24, 47638 Straelen, Germany"
+      "prename": "Sami",
+      "name": "Hassini",
+      "username": "SamasiNo",
+      "address": "Peter-Michels-Straße 27, 50827 Köln, Germany",
+      "latitude": 50.9713052,
+      "longitude": 6.913827
     }
   ],
   "offers": [
@@ -80,5 +45,12 @@
       "userID": "1"
     }
   ],
-  "current_offers": []
+  "current_offers": [
+    {
+      "name": "Renase",
+      "description": "Hoasdnnen",
+      "category": "Film",
+      "status": true
+    }
+  ]
 }
