@@ -1,56 +1,5 @@
 {
-  "users": [
-    {
-      "id": 1,
-      "prename": "Sami",
-      "name": "Hassini",
-      "username": "SamiNo",
-      "address": "Peter-Michels-Straße 27, 50827 Köln, Germany",
-      "latitude": 50.9713052,
-      "longitude": 6.913827
-    },
-    {
-      "id": 2,
-      "prename": "Sami",
-      "name": "Hassini",
-      "username": "SamasiNo",
-      "address": "Peter-Michels-Straße 27, 50827 Köln, Germany",
-      "latitude": 50.9713052,
-      "longitude": 6.913827
-    }
-  ],
-  "offers": [
-    {
-      "id": 1,
-      "name": "Dexter",
-      "description": "Film",
-      "category": "blueray",
-      "status": true,
-      "userID": "2"
-    },
-    {
-      "id": 2,
-      "name": "Besne",
-      "description": "as",
-      "category": "Film",
-      "status": true,
-      "userID": "2"
-    },
-    {
-      "id": 3,
-      "name": "Renase",
-      "description": "Hoasdnnen",
-      "category": "Film",
-      "status": true,
-      "userID": "1"
-    }
-  ],
-  "current_offers": [
-    {
-      "name": "Renase",
-      "description": "Hoasdnnen",
-      "category": "Film",
-      "status": true
-    }
-  ]
+  "users": [],
+  "offers": [],
+  "current_offers": []
 }

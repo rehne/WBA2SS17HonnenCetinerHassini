@@ -1,4 +1,5 @@
 var http = require('http');
+var path = require('path');
 var express = require('express');
 var request = require('request');
 var app = express();
@@ -13,7 +14,19 @@ var dHost = 'http://localhost';
 var dPort = 3000;
 var dUrl = dHost + ':' + dPort;
 
-//GET /users
+app.set('views', path.join(__dirname + '/views'));
+app.set('view engine', 'ejs');
+
+// Routen
+app.get('/login', function(req, res){
+  res.render('login');
+});
+
+app.get('/register', function(req, res){
+  res.render('register');
+})
+
+// GET /users
 app.get('/users', function(req, res){
   var url = dUrl + '/users';
 
@@ -70,7 +83,7 @@ app.get('/users/:userID', bodyParser.json(), function (req, res){
 	});
 });
 
-//PUT /userID
+// PUT /users/:userID
 app.put('/users/:userID', bodyParser.json(), function(req, res){
 	var userID = req.params.userID;
 	var url = dUrl + '/users/' + userID;
@@ -107,7 +120,7 @@ app.put('/users/:userID', bodyParser.json(), function(req, res){
 	});
 });
 
-// DELETE /userID
+// DELETE /users/:userID
 app.delete('/users/:userID', function(req, res){
 	var userID = req.params.userID;
 	var url = dUrl + '/users/' + userID;
@@ -152,7 +165,7 @@ app.post('/offers', bodyParser.json(), function(req, res){
 	});
 });
 
-// GET /offers/offerID
+// GET /offers/:offerID
 app.get('/offers/:offerID', function (req, res){
 	var offerID = req.params.offerID;
 	var url = dUrl+ '/offers/' + offerID;
@@ -165,7 +178,7 @@ app.get('/offers/:offerID', function (req, res){
 	});
 });
 
-// PUT /offerID
+// PUT /offers/:offerID
 app.put('/offers/:offerID', bodyParser.json(), function(req, res){
 	var offerID = req.params.offerID;
 	var url = dUrl + '/offers/' + offerID;
@@ -191,7 +204,7 @@ app.put('/offers/:offerID', bodyParser.json(), function(req, res){
 	});
 });
 
-// DELETE /offerID
+// DELETE /offers/:offerID
 app.delete('/offers/:offerID', function(req, res){
 	var offerID = req.params.offerID;
 	var url = dUrl + '/offers/' + offerID;
