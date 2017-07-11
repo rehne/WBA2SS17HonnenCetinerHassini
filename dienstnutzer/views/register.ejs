@@ -3,19 +3,33 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Register</title>
+    <title>LoanMe</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link rel="stylesheet" href="http://getbootstrap.com/examples/signin/signin.css" type="text/css">
   </head>
   <body>
-    <div>
-      <h1>Register</h1>
-      <form>
-        <label for="">Benutzername</label>
-        <input type="text" name="username" value="Benutzername hier eingeben">
-
-        <label for="">Passwort</label>
-        <input type="password" name="password" value="Passwort hier eingeben">
-
-        <button class="btn" type="button" name="button">Register</button>
+    <div class="container">
+      <form class="form-signin" action="">
+        <h1 class="form-signin-header">Register</h1>
+        <br>
+        <label for="inputFirstName" class="sr-only">Vorname</label>
+        <input type="text" id="inputFirstName" class="form-control" placeholder="Vorname" required autofocus>
+        <br>
+        <label for="inputLastName" class="sr-only">Vorname</label>
+        <input type="text" id="inputLastName" class="form-control" placeholder="Name" required autofocus>
+        <br>
+        <label for="inputUsername" class="sr-only">Benutzername</label>
+        <input type="text" id="inputUsername" class="form-control" placeholder="Benutzername" required autofocus>
+        <br>
+        <label for="inputAddress" class="sr-only">Adresse</label>
+        <input type="text" id="inputAddress" class="form-control" placeholder="Adresse" required autofocus>
+        <br>
+        <label for="inputPassword" class="sr-only">Passwort</label>
+        <input type="password" id="inputPassword" class="form-control" placeholder="Passwort" required autofocus>
+        <br>
+        <button class="btn btn-lg btn-primary btn-block" type="submit">Registrieren</button>
+        <br>
+        <p><a href="/login"><-- Login</a></p>
       </form>
     </div>
   </body>

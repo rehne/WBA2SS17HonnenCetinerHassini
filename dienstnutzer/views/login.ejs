@@ -4,19 +4,24 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>LoanMe</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link rel="stylesheet" href="http://getbootstrap.com/examples/signin/signin.css" type="text/css">
   </head>
   <body>
-    <div>
-      <h1>Login</h1>
-      <form action="">
-        <label>Benutzername</label>
-        <input type="text">
-
-        <label>Passwort</label>
-        <input type="password">
-        <button class="btn btn-default" type="button" name="button"></button>
+    <div class="container">
+      <form class="form-signin" action="">
+        <h1 class="form-signin-header">Login</h1>
+        <br>
+        <label for="inputUsername" class="sr-only">Benutzername</label>
+        <input type="text" id="inputUsername" class="form-control" placeholder="Benutzername" required autofocus>
+        <br>
+        <label for="inputPassword" class="sr-only">Passwort</label>
+        <input type="password" id="inputPassword" class="form-control" placeholder="Passwort" required autofocus>
+        <br>
+        <button class="btn btn-lg btn-primary btn-block" type="submit">Login</button>
+        <br>
+        <p><a href="/register">Account erstellen</a></p>
       </form>
-      <p><a href="/register">Account erstellen</a></p>
     </div>
   </body>
 </html>
