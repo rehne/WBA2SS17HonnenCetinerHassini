@@ -1,5 +1,13 @@
 {
   "users": [],
-  "offers": [],
+  "offers": [
+    {
+      "id": 1,
+      "name": "GTA",
+      "description": "Grand Theft Auto",
+      "category": "Action",
+      "status": true
+    }
+  ],
   "current_offers": []
 }

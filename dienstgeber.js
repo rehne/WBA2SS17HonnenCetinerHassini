@@ -1,6 +1,6 @@
 var fs = require('fs');
 var express = require('express');
-var bodyParser=require('body-parser');
+var bodyParser = require('body-parser');
 
 var app = express();
 app.use(bodyParser.json());
@@ -77,7 +77,7 @@ app.post('/users', bodyParser.json(), function(req, res){
 app.get('/users/:userID', function(req,res){
   fs.readFile(settings.database, function(err, data){
     var user = JSON.parse(data);
-    var  current_i = user.users.length;
+    var current_i = user.users.length;
 
     //if current_offers are not empty clear current_offers to avoid duplicated offers
     if(user.current_offers.length > 0){
