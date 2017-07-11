@@ -35,6 +35,23 @@
       "username": "stino",
       "latitude": 51.3847079,
       "longitude": 6.2450154
+    },
+    {
+      "id": 6,
+      "prename": "Jan",
+      "name": "Stienen",
+      "username": "adsf",
+      "latitude": 51.3847079,
+      "longitude": 6.2450154
+    },
+    {
+      "id": 7,
+      "prename": "Jan",
+      "name": "Stienen",
+      "username": "eu",
+      "latitude": 51.3847079,
+      "longitude": 6.2450154,
+      "address": "Liebfrauenweg 24, 47638 Straelen, Germany"
     }
   ],
   "offers": [

@@ -63,7 +63,8 @@ app.post('/users', bodyParser.json(), function(req, res){
         "name": req.body.name,
         "username": req.body.username,
         "latitude": req.body.latitude,
-        "longitude": req.body.longitude
+        "longitude": req.body.longitude,
+        "address": req.body.address
       });
       fs.writeFile(settings.database, JSON.stringify(user, null, 2));
       res.status(201).send("Benutzer erfolgreich gespeichert!\n");
@@ -127,6 +128,7 @@ app.put('/users/:userID', bodyParser.json(), function(req, res){
         res.status(200).send("User erfolgreich bearbeitet");
       }
     }
+    res.status(400).send("User zum bearbeiten nicht vorhanden.");
   });
 });
 
@@ -223,6 +225,7 @@ app.put('/offers/:offerID', bodyParser.json(), function(req, res){
         res.status(200).send("Offer erfolgreich bearbeitet");
       }
     }
+    res.status(400).send("Offer zum bearbeiten nicht vorhanden");
   });
 });
 
@@ -240,7 +243,7 @@ app.delete('/offers/:offerID', function(req, res){
     }
     //if current_i is already the same like number of the offers, there are no offer found. is current_i not the same, delete the offer
     if(current_i < offer.offers.length){
-      offer.offers.splice(current_i,1);
+      offer.offers.splice(current_i, 1);
       fs.writeFile(settings.database, JSON.stringify(offer, null, 2));
       res.status(204).send("Offer erfolgreich gelöscht");
     } else {

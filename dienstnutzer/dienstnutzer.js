@@ -36,7 +36,8 @@ app.post('/users',bodyParser.json(), function(req, res){
         "name": req.body.name,
         "username": req.body.username,
         "latitude": response.json.results[0].geometry.location.lat,
-        "longitude": response.json.results[0].geometry.location.lng
+        "longitude": response.json.results[0].geometry.location.lng,
+        "address": response.json.results[0].formatted_address
       };
       var options = {
         uri: url,
@@ -55,15 +56,16 @@ app.post('/users',bodyParser.json(), function(req, res){
   });
 });
 
-// GET /userID
+// GET /users/userID
 app.get('/users/:userID', bodyParser.json(), function (req, res){
 	var userID = req.params.userID;
 	var url = dUrl + '/users/' + userID;
 
-	//helper method used
 	request.get(url, function(err, response, body){
-		body = JSON.parse(body);
-		res.json(body);
+    if(response.statusCode == 200){
+      body = JSON.parse(body);
+    }
+    res.json(body);
 	});
 });
 
@@ -97,17 +99,20 @@ app.put('/users/:userID', bodyParser.json(), function(req, res){
   */
 
 	request(options, function(err, response, body){
-		res.json(body);
+    if(response.statusCode == 200){
+      body = JSON.parse(body);
+    }
+    res.json(body);
 	});
 });
 
 // DELETE /userID
 app.delete('/users/:userID', function(req, res){
-
 	var userID = req.params.userID;
 	var url = dUrl + '/users/' + userID;
 
 	request.delete(url, function(err, response, body){
+    res.send(body);
 	});
 });
 
@@ -146,15 +151,16 @@ app.post('/offers', bodyParser.json(), function(req, res){
 	});
 });
 
-// GET /offerID
+// GET /offers/offerID
 app.get('/offers/:offerID', function (req, res){
 	var offerID = req.params.offerID;
 	var url = dUrl+ '/offers/' + offerID;
 
-	//helper method used
 	request.get(url, function(err, response, body){
-		body = JSON.parse(body);
-		res.json(body);
+    if(response.statusCode == 200){
+      body = JSON.parse(body);
+    }
+    res.json(body);
 	});
 });
 
@@ -177,18 +183,20 @@ app.put('/offers/:offerID', bodyParser.json(), function(req, res){
 		json: offerDataNew
 	}
 	request(options, function(err, response, body){
-		res.json(body);
+    if(response.statusCode == 200){
+      body = JSON.parse(body);
+    }
+    res.json(body);
 	});
 });
 
 // DELETE /offerID
 app.delete('/offers/:offerID', function(req, res){
-
 	var offerID = req.params.offerID;
 	var url = dUrl + '/offers/' + offerID;
 
-
 	request.delete(url, function(err, response, body){
+    res.send(body);
 	});
 });
 
