@@ -94,7 +94,8 @@ app.put('/users/:userID', bodyParser.json(), function(req, res){
 	var url = dUrl + '/users/' + userID;
 	var userDataNew = {
 		"prename": req.body.prename,
-    "name": req.body.name
+    "name": req.body.name,
+		"address": req.body.address
 	};
 	var options = {
 		uri : url,
@@ -118,9 +119,6 @@ app.put('/users/:userID', bodyParser.json(), function(req, res){
   */
 
 	request(options, function(err, response, body){
-    if(response.statusCode == 200){
-      body = JSON.parse(body);
-    }
     res.json(body);
 	});
 });
