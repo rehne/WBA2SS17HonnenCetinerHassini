@@ -21,15 +21,6 @@
   ],
   "offers": [
     {
-      "id": 1,
-      "name": "MacBook Pro",
-      "description": "Laptop",
-      "category": "Elektronik",
-      "status": false,
-      "userID": 1,
-      "imBesitzvonID": 2
-    },
-    {
       "id": 2,
       "name": "GTA V",
       "description": "Grand Theft Auto 5 for PlayStation 4",
@@ -39,5 +30,12 @@
       "imBesitzvonID": 2
     }
   ],
-  "current_offers": []
+  "current_offers": [
+    {
+      "name": "GTA V",
+      "description": "Grand Theft Auto 5 for PlayStation 4",
+      "category": "Games",
+      "status": 1
+    }
+  ]
 }

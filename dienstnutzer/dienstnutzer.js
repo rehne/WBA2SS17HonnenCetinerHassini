@@ -258,7 +258,7 @@ app.get('/ausleiher/:offerID', function(req,res){
 // GET /category
 app.get('/offers/category/:category', function(req, res){
 	var categoryType = req.params.category;
-	var url =  dUrl + '/offers/' + 'category/' + ":" + categoryType;
+	var url =  dUrl + '/offers/category/' + categoryType;
 	request(url, function (err, response, body){
 		if(response.statusCode == 200){
       body = JSON.parse(body);
