@@ -21,12 +21,12 @@
   ],
   "offers": [
     {
-      "id": 2,
-      "name": "GTA V",
-      "description": "Grand Theft Auto 5 for PlayStation 4",
-      "category": "Games",
-      "status": 1,
-      "userID": 2,
+      "id": 1,
+      "name": "MacBook Pro",
+      "description": "Laptop",
+      "category": "Elektronik",
+      "status": false,
+      "userID": 1,
       "imBesitzvonID": 2
     }
   ],

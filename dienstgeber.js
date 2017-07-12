@@ -125,8 +125,10 @@ app.put('/users/:userID', bodyParser.json(), function(req, res){
       if(user.users[i].id == req.params.userID){
         user.users[i].prename = req.body.prename;
         user.users[i].name = req.body.name;
+				user.users[i].address = req.body.address;
+				
         fs.writeFile(settings.database, JSON.stringify(user, null, 2));
-        res.status(200).send("User erfolgreich bearbeitet");
+        return res.status(200).send("User erfolgreich bearbeitet");
       }
     }
     res.status(400).send("User zum bearbeiten nicht vorhanden.");
