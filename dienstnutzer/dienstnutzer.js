@@ -28,7 +28,7 @@ app.get('/dashboard', function(req, res){
   res.render('dashboard');
 });
 app.get('/logout', function(req, res){
-  
+
 });
 
 // GET /users
@@ -204,9 +204,6 @@ app.put('/offers/:offerID', bodyParser.json(), function(req, res){
 		json: offerDataNew
 	}
 	request(options, function(err, response, body){
-    if(response.statusCode == 200){
-      body = JSON.parse(body);
-    }
     res.json(body);
 	});
 });
@@ -223,52 +220,45 @@ app.delete('/offers/:offerID', function(req, res){
 
 //GET/status/:offerID
 app.get('/status/:offerID', function(req,res){
-				var offerID = req.params.offerID;
-				var url = dUrl + '/offers/' + offerID;
-				
-				request.get(url, function(err, response, body){
-					if(response.statusCode == 200){
-      			body = JSON.parse(body);
-						if(body.status) res.send("verfügbar");
-						else res.send("verliehen");
-    			}
-    			else(res.json(body));
-				});
+	var offerID = req.params.offerID;
+	var url = dUrl + '/offers/' + offerID;
+
+	request.get(url, function(err, response, body){
+		if(response.statusCode == 200){
+			body = JSON.parse(body);
+			if(body.status) res.send("verfügbar");
+			else res.send("verliehen");
+		}
+		else(res.json(body));
+	});
 });
 
 //GET/ausleiher/:offerID
 app.get('/ausleiher/:offerID', function(req,res){
 	var offerID = req.params.offerID
 	var url = dUrl + '/offers/' + offerID;
-	
+
 	request.get(url,function(err,response,body){
 		if(response.statusCode == 200){
 			body = JSON.parse(body);
 			if(body.userID == body.imBesitzvonID || body.status == true) res.send("an niemanden Verliehen");
 			else{
 				var url = dUrl + '/users/' + body.imBesitzvonID;
-				request.get(url,function(err2,response2,body2){ 
-					
+				request.get(url,function(err2,response2,body2){
+
 					console.log(body2);
 					res.send( "verliehen an: " + body2.username);
-				
-				
 				});
-				
 			}
 		}
 		else(res.json(body));
 	});
-	
-	
 });
 
 // GET /category
 app.get('/offers/category/:category', function(req, res){
 	var categoryType = req.params.category;
-
 	var url =  dUrl + '/offers/' + 'category/' + ":" + categoryType;
-
 	request(url, function (err, response, body){
 		if(response.statusCode == 200){
       body = JSON.parse(body);

@@ -225,10 +225,10 @@ app.put('/offers/:offerID', bodyParser.json(), function(req, res){
         offer.offers[i].status = req.body.status;
 				offer.offers[i].imBesitzvonID = req.body.imBesitzvonID;
         fs.writeFile(settings.database, JSON.stringify(offer, null, 2));
-        res.status(200).send("Offer erfolgreich bearbeitet");
+        return res.status(200).send("Offer erfolgreich bearbeitet");
       }
     }
-    res.status(400).send("Offer zum bearbeiten nicht vorhanden");
+    res.status(400).send("Offer zum Bearbeiten nicht vorhanden");
   });
 });
 
