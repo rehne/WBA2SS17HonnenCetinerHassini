@@ -260,6 +260,20 @@ app.get('/ausleiher/:offerID', function(req,res){
 app.get('/offers/category/:category', function(req, res){
 	var categoryType = req.params.category;
 	var url =  dUrl + '/offers/category/' + categoryType;
+	
+	request(url, function (err, response, body){
+		if(response.statusCode == 200){
+      body = JSON.parse(body);
+    }
+    res.json(body);
+	});
+});
+
+// GET /ausgeliehen
+app.get('/offers/ausgeliehen/:userID', function(req, res){
+	var userID = req.params.userID;
+	var url =  dUrl + '/offers/ausgeliehen/' + userID;
+	
 	request(url, function (err, response, body){
 		if(response.statusCode == 200){
       body = JSON.parse(body);
