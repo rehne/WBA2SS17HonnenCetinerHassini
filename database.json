@@ -11,9 +11,18 @@
     },
     {
       "id": 2,
-      "prename": "Rene",
-      "name": "Honnen",
+      "prename": "Aziz",
+      "name": "Cetiner",
       "username": "Rehne",
+      "address": "Peter-Michels-Straße 27, 50827 Köln, Germany",
+      "latitude": 50.9713052,
+      "longitude": 6.913827
+    },
+    {
+      "id": 3,
+      "prename": "Aziz",
+      "name": "Cetiner",
+      "username": "aCetiner",
       "address": "Peter-Michels-Straße 27, 50827 Köln, Germany",
       "latitude": 50.9713052,
       "longitude": 6.913827
@@ -28,14 +37,25 @@
       "status": false,
       "userID": 1,
       "imBesitzvonID": 2
+    },
+    {
+      "id": 1,
+      "name": "GTA",
+      "description": "Spiel",
+      "category": "Gaming",
+      "status": false,
+      "userID": 2,
+      "imBesitzvonID": 3
+    },
+    {
+      "id": 1,
+      "name": "Nimbus200",
+      "description": "besen",
+      "category": "film",
+      "status": false,
+      "userID": 1,
+      "imBesitzvonID": 2
     }
   ],
-  "current_offers": [
-    {
-      "name": "GTA V",
-      "description": "Grand Theft Auto 5 for PlayStation 4",
-      "category": "Games",
-      "status": 1
-    }
-  ]
+  "current_offers": []
 }

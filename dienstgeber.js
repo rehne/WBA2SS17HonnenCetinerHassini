@@ -187,7 +187,7 @@ app.post('/offers', bodyParser.json(), function(req, res){
       "category" : req.body.category,
       "status" : true,
       "userID": req.body.userID,
-			"imBesitzvonID": req.body.userID
+			"imBesitzvonID": null
     });
     fs.writeFile(settings.database, JSON.stringify(offer, null, 2));
   });
@@ -291,6 +291,42 @@ app.get('/offers/category/:category', function(req,res){
       res.status(404).send("Category NOT FOUND");
     }
   });
+});
+
+//GET /:ausgelieheneOffer
+app.get('/offers/ausgeliehen/:userID', function(req, res){
+	fs.readFile(settings.database, function(err, data){
+		var offer = JSON.parse(data);
+		var current_i = offer.offers.length;
+		var count = 0;
+	
+		//if current_offers are not empty clear current_offers to avoid duplicated offers, if current_offers is already empty, send error
+		if(offer.current_offers.length > 0){
+			offer.current_offers.splice(0, offer.current_offers.length);
+				fs.writeFile(settings.database, JSON.stringify(offer, null, 2));
+		} else if(offer.offers.length == 0){
+			res.status(404).send("No offers found");
+    }
+	
+		//Find all offers that the user lent and save they in current_offers. if there is an offer lent by the user, Count++. after loop check count. if count is already 0, send error. if count > 0 there are offers lent bei the user. Send them
+		for(var i = 0; i < offer.offers.length; i++ ){
+      if(offer.offers[i].imBesitzvonID == req.params.userID){
+        offer.current_offers.push({
+          "name": offer.offers[i].name,
+          "description": offer.offers[i].description,
+          "category": offer.offers[i].category,
+          "status" : offer.offers[i].status
+        });
+        count++;
+      }
+		}
+    if(count > 0){
+      fs.writeFile(settings.database, JSON.stringify(offer, null, 2));
+      res.status(200).send(offer.current_offers);
+    } else {
+      res.status(404).send("Offers NOT FOUND");
+    }
+	});
 });
 
 app.listen(settings.port, function(){
