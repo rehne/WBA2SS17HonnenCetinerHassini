@@ -57,5 +57,18 @@
       "imBesitzvonID": 2
     }
   ],
-  "current_offers": []
+  "current_offers": [
+    {
+      "name": "MacBook Pro",
+      "description": "Laptop",
+      "category": "Elektronik",
+      "status": false
+    },
+    {
+      "name": "Nimbus200",
+      "description": "besen",
+      "category": "film",
+      "status": false
+    }
+  ]
 }

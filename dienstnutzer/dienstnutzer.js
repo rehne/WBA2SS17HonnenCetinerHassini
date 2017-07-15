@@ -256,26 +256,61 @@ app.get('/ausleiher/:offerID', function(req,res){
 // GET /category
 app.get('/offers/category/:category', function(req, res){
 	var categoryType = req.params.category;
-	var url =  dUrl + '/offers/category/' + categoryType;
+	var category_offers = {"category_offers": []}
+	var count = 0;
+	var url =  dUrl + '/offers';
 	
-	request(url, function (err, response, body){
-		if(response.statusCode == 200){
-      body = JSON.parse(body);
-    }
-    res.json(body);
+	request.get(url, function (err, response, body){
+		body = JSON.parse(body);
+		for(var i = 0; i < body.length; i++){
+			if(body[i].category == categoryType){
+				category_offers.category_offers.push({
+				"id": body[i].id,
+      	"name": body[i].name,
+      	"description": body[i].description,
+      	"category" : body[i].category,
+      	"status" : body[i].status,
+      	"userID": body[i].userID,
+				"imBesitzvonID": body[i].imBesitzvonID
+				});
+				count++;
+			}
+		}
+		if(count == 0) res.status(404).send("no Offers with this category found");
+    else res.json(category_offers);
 	});
 });
 
 // GET /ausgeliehen
 app.get('/offers/ausgeliehen/:userID', function(req, res){
 	var userID = req.params.userID;
-	var url =  dUrl + '/offers/ausgeliehen/' + userID;
+	var lent_offers = {"lent_offers": []};
+	var count = 0;
+	var url =  dUrl + '/offers';
+	var url2 =  dUrl + '/users/' + userID;
 	
-	request(url, function (err, response, body){
-		if(response.statusCode == 200){
-      body = JSON.parse(body);
-    }
-    res.json(body);
+	request.get(url, function (err, response, body){
+		request.get(url2, function (err2, response2, body2){
+			body = JSON.parse(body);
+			for (var i = 0; i < body.length; i++){
+				if(body[i].imBesitzvonID == userID){
+					lent_offers.lent_offers.push({
+					"id": body[i].id,
+      		"name": body[i].name,
+      		"description": body[i].description,
+      		"category" : body[i].category,
+      		"status" : body[i].status,
+      		"userID": body[i].userID,
+					"imBesitzvonID": body[i].imBesitzvonID
+					});
+					count++;
+				}
+			}
+		if(count == 0 && response2.statusCode == 200) return res.status(404).send("no Offers lent by this user found");
+		else if(response2.statusCode == 404) res.status(404).send("user doesn't exist");
+    else res.json(lent_offers);
+	
+		});
 	});
 });
 
