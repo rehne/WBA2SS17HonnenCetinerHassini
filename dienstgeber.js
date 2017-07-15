@@ -257,6 +257,8 @@ app.delete('/offers/:offerID', function(req, res){
   });
 });
 
+//
+
 app.listen(settings.port, function(){
   console.log("Dienstgeber läuft auf Port " + settings.port + ".");
 });
