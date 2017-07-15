@@ -27,11 +27,8 @@ app.get('/register', function(req, res){
 app.get('/dashboard', function(req, res){
   res.render('dashboard');
 });
-app.get('/profile', function(req, res){
-  res.render('profile');
-});
 app.get('/logout', function(req, res){
-  res.redirect('/login');
+
 });
 
 // GET /users
@@ -82,12 +79,30 @@ app.post('/users',bodyParser.json(), function(req, res){
 app.get('/users/:userID', bodyParser.json(), function (req, res){
 	var userID = req.params.userID;
 	var url = dUrl + '/users/' + userID;
+	var url2 = dUrl + '/offers';
 
 	request.get(url, function(err, response, body){
-    if(response.statusCode == 200){
-      body = JSON.parse(body);
-    }
-    res.json(body);
+    request.get(url2, function (err2, response2, body2){	
+			
+			if(response.statusCode == 200){
+      	body = JSON.parse(body);
+				body2 = JSON.parse(body2);
+				for(var i = 0; i < body2.length; i++){
+					if(body2[i].imBesitzvonID == body.id){
+						body.lent_offers.push({
+						"id": body2[i].id,
+      			"name": body2[i].name,
+      			"description": body2[i].description,
+						"category" : body2[i].category,
+      			"status" : body2[i].status,
+      			"userID": body2[i].userID,
+						"imBesitzvonID": body2[i].imBesitzvonID
+					});
+					}
+    		}
+			}
+			res.json(body);	
+		});
 	});
 });
 
@@ -132,7 +147,8 @@ app.delete('/users/:userID', function(req, res){
 	var url = dUrl + '/users/' + userID;
 
 	request.delete(url, function(err, response, body){
-    res.send(body);
+    if(response.statusCode != 404) return res.send(body + "User erfolgreich gelöscht")
+		res.send(body);
 	});
 });
 
@@ -215,7 +231,8 @@ app.delete('/offers/:offerID', function(req, res){
 	var url = dUrl + '/offers/' + offerID;
 
 	request.delete(url, function(err, response, body){
-    res.send(body);
+    if(response.statusCode != 404) return res.send(body + "User erfolgreich gelöscht")
+		res.send(body);
 	});
 });
 
@@ -246,8 +263,7 @@ app.get('/ausleiher/:offerID', function(req,res){
 			else{
 				var url = dUrl + '/users/' + body.imBesitzvonID;
 				request.get(url,function(err2,response2,body2){
-
-					console.log(body2);
+					body2 = JSON.parse(body2);
 					res.send( "verliehen an: " + body2.username);
 				});
 			}
@@ -317,7 +333,6 @@ app.get('/offers/ausgeliehen/:userID', function(req, res){
 	});
 });
 
-//
 /*
 // ------------- FAYE -----------
 

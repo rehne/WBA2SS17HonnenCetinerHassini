@@ -65,10 +65,11 @@ app.post('/users', bodyParser.json(), function(req, res){
 				"password": req.body.password,
 				"address": req.body.address,
         "latitude": req.body.latitude,
-        "longitude": req.body.longitude
+        "longitude": req.body.longitude,
+				"lent_offers": []
       });
       fs.writeFile(settings.database, JSON.stringify(user, null, 2));
-      res.status(201).send("Benutzer erfolgreich gespeichert!\n");
+      res.status(201).send("Benutzer erfolgreich gespeichert!");
     }
   });
 });
@@ -79,37 +80,15 @@ app.get('/users/:userID', function(req,res){
     var user = JSON.parse(data);
     var current_i = user.users.length;
 
-    //if current_offers are not empty clear current_offers to avoid duplicated offers
-    if(user.current_offers.length > 0){
-    user.current_offers.splice(0, user.current_offers.length);
-      fs.writeFile(settings.database, JSON.stringify(user, null, 2));
-    }
-
     //Find the position of the searched user and save it in current_i
     for(var i = 0; i < user.users.length; i++ ){
       if(user.users[i].id == req.params.userID){
         current_i = i;
       }
     }
-
-    //if current_i is already the same like number of the users, there are no user found. is current_i not the same, assign the offers to the users and print the user with his offers
+//if current_i is already the same like number of the users, there are no user found. is current_i not the same, print the user
     if(current_i < user.users.length){
-      for(var i = 0; i< user.offers.length; i++){
-        if(user.users[current_i].id == user.offers[i].userID){
-          user.current_offers.push({
-            "name": user.offers[i].name,
-            "description": user.offers[i].description,
-            "category": user.offers[i].category,
-            "status" : user.offers[i].status
-          });
-        }
-      }
-      fs.writeFile(settings.database, JSON.stringify(user, null, 2));
-      var ausgabe = { "user" : user.users[current_i],
-                     "offers" : user.current_offers
-
-      };
-      res.status(200).send(ausgabe);
+      res.status(200).send(user.users[current_i]);
     } else {
       res.status(404).send("User NOT FOUND");
     }
@@ -131,7 +110,7 @@ app.put('/users/:userID', bodyParser.json(), function(req, res){
         return res.status(200).send("User erfolgreich bearbeitet");
       }
     }
-    res.status(400).send("User zum bearbeiten nicht vorhanden.");
+    res.status(404).send("User zum bearbeiten nicht vorhanden.");
   });
 });
 
@@ -224,13 +203,13 @@ app.put('/offers/:offerID', bodyParser.json(), function(req, res){
         offer.offers[i].name = req.body.name;
         offer.offers[i].description = req.body.description;
         offer.offers[i].category = req.body.category;
-        offer.offers[i].status = req.body.status;
 				offer.offers[i].imBesitzvonID = req.body.imBesitzvonID;
+				if(offer.offers[i].imBesitzvonID != null ) offer.offers[i].status = false;
         fs.writeFile(settings.database, JSON.stringify(offer, null, 2));
         return res.status(200).send("Offer erfolgreich bearbeitet");
       }
     }
-    res.status(400).send("Offer zum Bearbeiten nicht vorhanden");
+    res.status(404).send("Offer zum Bearbeiten nicht vorhanden");
   });
 });
 
@@ -256,8 +235,6 @@ app.delete('/offers/:offerID', function(req, res){
     }
   });
 });
-
-//
 
 app.listen(settings.port, function(){
   console.log("Dienstgeber läuft auf Port " + settings.port + ".");

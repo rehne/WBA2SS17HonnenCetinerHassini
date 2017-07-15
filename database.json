@@ -5,70 +5,20 @@
       "prename": "Sami",
       "name": "Hassini",
       "username": "SamiNo",
-      "address": "Peter-Michels-Straße 27, 50827 Köln, Germany",
-      "latitude": 50.9713052,
-      "longitude": 6.913827
-    },
-    {
-      "id": 2,
-      "prename": "Aziz",
-      "name": "Cetiner",
-      "username": "Rehne",
-      "address": "Peter-Michels-Straße 27, 50827 Köln, Germany",
-      "latitude": 50.9713052,
-      "longitude": 6.913827
-    },
-    {
-      "id": 3,
-      "prename": "Aziz",
-      "name": "Cetiner",
-      "username": "aCetiner",
-      "address": "Peter-Michels-Straße 27, 50827 Köln, Germany",
-      "latitude": 50.9713052,
-      "longitude": 6.913827
+      "address": "Peter-Michels- Str. 27, 50827",
+      "latitude": 50.8330101,
+      "longitude": 7.0302304,
+      "lent_offers": []
     }
   ],
   "offers": [
     {
       "id": 1,
-      "name": "MacBook Pro",
-      "description": "Laptop",
-      "category": "Elektronik",
+      "name": "Nimbus2000",
+      "description": "Besen",
+      "category": "Film",
       "status": false,
-      "userID": 1,
-      "imBesitzvonID": 2
-    },
-    {
-      "id": 1,
-      "name": "GTA",
-      "description": "Spiel",
-      "category": "Gaming",
-      "status": false,
-      "userID": 2,
-      "imBesitzvonID": 3
-    },
-    {
-      "id": 1,
-      "name": "Nimbus200",
-      "description": "besen",
-      "category": "film",
-      "status": false,
-      "userID": 1,
-      "imBesitzvonID": 2
-    }
-  ],
-  "current_offers": [
-    {
-      "name": "MacBook Pro",
-      "description": "Laptop",
-      "category": "Elektronik",
-      "status": false
-    },
-    {
-      "name": "Nimbus200",
-      "description": "besen",
-      "category": "film",
-      "status": false
+      "imBesitzvonID": 1
     }
   ]
 }
