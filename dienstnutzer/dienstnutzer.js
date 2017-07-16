@@ -96,7 +96,9 @@ app.get('/users/:userID', bodyParser.json(), function (req, res){
 						"category" : body2[i].category,
       			"status" : body2[i].status,
       			"userID": body2[i].userID,
-						"imBesitzvonID": body2[i].imBesitzvonID
+						"imBesitzvonID": body2[i].imBesitzvonID,
+						"latitude" : body2[i].latitude,
+						"longitude" : body2[i].longitude
 					});
 					}
     		}
@@ -290,7 +292,9 @@ app.get('/offers/category/:category', function(req, res){
       	"category" : body[i].category,
       	"status" : body[i].status,
       	"userID": body[i].userID,
-				"imBesitzvonID": body[i].imBesitzvonID
+				"imBesitzvonID": body[i].imBesitzvonID,
+				"latitude" : body2[i].latitude,
+				"longitude" : body2[i].longitude
 				});
 				count++;
 			}
@@ -320,7 +324,9 @@ app.get('/offers/ausgeliehen/:userID', function(req, res){
       		"category" : body[i].category,
       		"status" : body[i].status,
       		"userID": body[i].userID,
-					"imBesitzvonID": body[i].imBesitzvonID
+					"imBesitzvonID": body[i].imBesitzvonID,
+					"latitude" : body2[i].latitude,
+					"longitude" : body2[i].longitude
 					});
 					count++;
 				}
@@ -330,6 +336,47 @@ app.get('/offers/ausgeliehen/:userID', function(req, res){
     else res.json(lent_offers);
 	
 		});
+	});
+});
+
+// GET /standort
+app.get('/offers/standort/:standort', function(req, res){
+	var standort = req.params.standort;
+	var url = dUrl + '/offers';
+	var nearby_offers = {"nearby_offers": []};
+	var count = 0;
+	
+	request.get(url, function (err, response, body){
+		body = JSON.parse(body);
+		googleMapsClient.geocode({
+    address: req.params.standort
+  	}, function(err, response) {
+    	if (!err) {
+      	var userData = {
+        	"latitude": response.json.results[0].geometry.location.lat,
+        	"longitude": response.json.results[0].geometry.location.lng
+      };
+		for(var i = 0; i < body.length; i++){
+			if(body[i].latitude >= (userData.latitude - 0.04) && body[i].latitude <= (userData.latitude + 0.04) && body[i].longitude >= (userData.longitude - 0.04) && body[i].longitude <= (userData.longitude + 0.04) ){
+				nearby_offers.nearby_offers.push({
+					"id": body[i].id,
+      		"name": body[i].name,
+      		"description": body[i].description,
+      		"category" : body[i].category,
+      		"status" : body[i].status,
+      		"userID": body[i].userID,
+					"imBesitzvonID": body[i].imBesitzvonID,
+					"latitude" : body[i].latitude,
+					"longitude" : body[i].longitude
+					});
+				count++;
+			}
+		}
+			
+		if(count == 0) return res.status(404).send("no Offers in the area found");
+		else res.json(nearby_offers);
+		
+		});		
 	});
 });
 

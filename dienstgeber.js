@@ -166,7 +166,9 @@ app.post('/offers', bodyParser.json(), function(req, res){
       "category" : req.body.category,
       "status" : true,
       "userID": req.body.userID,
-			"imBesitzvonID": null
+			"imBesitzvonID": null,
+			"latitude": null,
+      "longitude": null,
     });
     fs.writeFile(settings.database, JSON.stringify(offer, null, 2));
   });
@@ -204,6 +206,12 @@ app.put('/offers/:offerID', bodyParser.json(), function(req, res){
         offer.offers[i].description = req.body.description;
         offer.offers[i].category = req.body.category;
 				offer.offers[i].imBesitzvonID = req.body.imBesitzvonID;
+				for(var x = 0; x < offer.users.length; x++){
+					if(offer.users[x].id == req.body.imBesitzvonID){
+						offer.offers[i].latitude = offer.users[x].latitude;
+						offer.offers[i].longitude = offer.users[x].longitude;
+					}
+				}
 				if(offer.offers[i].imBesitzvonID != null ) offer.offers[i].status = false;
         fs.writeFile(settings.database, JSON.stringify(offer, null, 2));
         return res.status(200).send("Offer erfolgreich bearbeitet");
