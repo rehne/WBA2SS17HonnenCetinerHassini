@@ -22,10 +22,6 @@ app.use(function(req, res, next){
   next();
 });
 
-app.get('/', function(req, res){
-  res.status(200).send('Hello World!');
-});
-
 /* User Methoden */
 
 // GET /users
@@ -68,7 +64,7 @@ app.post('/users', bodyParser.json(), function(req, res){
 				"address": req.body.address,
         "latitude": req.body.latitude,
         "longitude": req.body.longitude,
-				"lent_offers": []
+				"oen_offers": []
       });
       fs.writeFile(settings.database, JSON.stringify(user, null, 2));
       res.write("" + max_index);
@@ -169,8 +165,8 @@ app.post('/offers', bodyParser.json(), function(req, res){
       "name": req.body.name,
       "description": req.body.description,
       "category" : req.body.category,
-      "status" : true,
-      "userID": req.body.userID,
+      "erstelltvonID" : req.body.erstelltvonID,
+			"status" : true,
 			"imBesitzvonID": null,
 			"latitude": null,
       "longitude": null,

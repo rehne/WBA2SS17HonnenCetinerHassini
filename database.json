@@ -7,7 +7,7 @@
       "address": "Peter-Michels-Straße 27, 50827 Köln, Germany",
       "latitude": 50.9713052,
       "longitude": 6.913827,
-      "lent_offers": []
+      "own_offers": []
     },
     {
       "id": 2,
@@ -17,29 +17,42 @@
       "address": "Wasserfuhrstraße 15, 51643 Gummersbach, Germany",
       "latitude": 51.0292165,
       "longitude": 7.553982599999999,
-      "lent_offers": []
+      "own_offers": []
     }
   ],
   "offers": [
     {
       "id": 1,
-      "name": "Elderstab",
-      "description": "Zauberstab",
+      "name": "Nimbus2000",
+      "description": "Besen",
       "category": "Film",
+      "erstelltvonID": 1,
       "status": false,
-      "imBesitzvonID": 1,
-      "latitude": 50.8330101,
-      "longitude": 7.0302304
+      "imBesitzvonID": 2,
+      "latitude": 51.0292165,
+      "longitude": 7.553982599999999
     },
     {
       "id": 2,
-      "name": "Trikot vom FC",
-      "description": "Trikot",
-      "category": "Mode",
+      "name": "Elderstab",
+      "description": "Zauberstab",
+      "category": "Film",
+      "erstelltvonID": 2,
       "status": false,
-      "imBesitzvonID": 2,
-      "latitude": 50.8330101,
-      "longitude": 7.0302304
+      "imBesitzvonID": 1,
+      "latitude": 50.9713052,
+      "longitude": 6.913827
+    },
+    {
+      "id": 3,
+      "name": "FC Trikot",
+      "description": "Trikot von Fussball",
+      "category": "Mode",
+      "erstelltvonID": 2,
+      "status": false,
+      "imBesitzvonID": 1,
+      "latitude": 50.9713052,
+      "longitude": 6.913827
     }
   ]
 }

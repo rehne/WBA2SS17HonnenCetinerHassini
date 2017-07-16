@@ -97,14 +97,14 @@ app.get('/users/:userID', bodyParser.json(), function (req, res){
       	body = JSON.parse(body);
 				body2 = JSON.parse(body2);
 				for(var i = 0; i < body2.length; i++){
-					if(body2[i].imBesitzvonID == body.id){
-						body.lent_offers.push({
+					if(body2[i].erstelltvonID == body.id){
+						body.own_offers.push({
 						"id": body2[i].id,
       			"name": body2[i].name,
       			"description": body2[i].description,
 						"category" : body2[i].category,
       			"status" : body2[i].status,
-      			"userID": body2[i].userID,
+      			"erstelltvonID": body2[i].erstelltvonID,
 						"imBesitzvonID": body2[i].imBesitzvonID,
 						"latitude" : body2[i].latitude,
 						"longitude" : body2[i].longitude
@@ -183,8 +183,7 @@ app.post('/offers', bodyParser.json(), function(req, res){
     "name": req.body.name,
     "description": req.body.description,
     "category" : req.body.category,
-    "userID": req.body.userID,
-		"imBesitzvonID": req.body.userID
+    "erstelltvonID": req.body.erstelltvonID
 	}
 	var options = {
 		uri : url,
@@ -276,7 +275,7 @@ app.get('/ausleiher/:offerID', function(req,res){
 	request.get(url,function(err,response,body){
 		if(response.statusCode == 200){
 			body = JSON.parse(body);
-			if(body.userID == body.imBesitzvonID || body.status == true) res.send("an niemanden Verliehen");
+			if(body.imBesitzvonID == null || body.status == true) res.send("an niemanden Verliehen");
 			else{
 				var url = dUrl + '/users/' + body.imBesitzvonID;
 				request.get(url,function(err2,response2,body2){
@@ -306,7 +305,7 @@ app.get('/offers/category/:category', function(req, res){
       	"description": body[i].description,
       	"category" : body[i].category,
       	"status" : body[i].status,
-      	"userID": body[i].userID,
+      	"erstelltvonID": body[i].erstelltvonID,
 				"imBesitzvonID": body[i].imBesitzvonID,
 				"latitude" : body2[i].latitude,
 				"longitude" : body2[i].longitude
@@ -338,7 +337,7 @@ app.get('/offers/ausgeliehen/:userID', function(req, res){
       		"description": body[i].description,
       		"category" : body[i].category,
       		"status" : body[i].status,
-      		"userID": body[i].userID,
+      		"erstelltvonID": body[i].erstelltvonID,
 					"imBesitzvonID": body[i].imBesitzvonID,
 					"latitude" : body2[i].latitude,
 					"longitude" : body2[i].longitude
@@ -379,7 +378,7 @@ app.get('/offers/standort/:standort', function(req, res){
       			"description": body[i].description,
       			"category" : body[i].category,
       			"status" : body[i].status,
-      			"userID": body[i].userID,
+      			"erstelltvonID": body[i].erstelltvonID,
 						"imBesitzvonID": body[i].imBesitzvonID,
 						"latitude" : body[i].latitude,
 						"longitude" : body[i].longitude
