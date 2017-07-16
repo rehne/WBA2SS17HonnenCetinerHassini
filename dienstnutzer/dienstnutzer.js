@@ -253,6 +253,7 @@ app.delete('/offers/:offerID', function(req, res){
 });
 
 //GET/status/:offerID
+//gibt aus, ob ein bestimmter Offer verfügbar oder verliehen ist
 app.get('/status/:offerID', function(req,res){
 	var offerID = req.params.offerID;
 	var url = dUrl + '/offers/' + offerID;
@@ -268,6 +269,7 @@ app.get('/status/:offerID', function(req,res){
 });
 
 //GET/ausleiher/:offerID
+//gibt aus, an wen ein bestimmter Offer verliehen ist
 app.get('/ausleiher/:offerID', function(req,res){
 	var offerID = req.params.offerID
 	var url = dUrl + '/offers/' + offerID;
@@ -289,6 +291,7 @@ app.get('/ausleiher/:offerID', function(req,res){
 });
 
 // GET /category
+//gibt alle Offers mit einer bestimmten Kategorie aus
 app.get('/offers/category/:category', function(req, res){
 	var categoryType = req.params.category;
 	var category_offers = {"category_offers": []}
@@ -319,6 +322,7 @@ app.get('/offers/category/:category', function(req, res){
 });
 
 // GET /ausgeliehen
+// gibt eine Liste aller ausgeliehenen Offer eines bestimmten Users aus
 app.get('/offers/ausgeliehen/:userID', function(req, res){
 	var userID = req.params.userID;
 	var lent_offers = {"lent_offers": []};
@@ -354,6 +358,7 @@ app.get('/offers/ausgeliehen/:userID', function(req, res){
 });
 
 // GET /standort
+// gibt alle Offers in der Nähe eines bestimmten Standortes, der vom Client eingegeben wird, aus. In der Nähe bedeutet ca. 5km Umkreis
 app.get('/offers/standort/:standort', function(req, res){
 	var standort = req.params.standort;
 	var url = dUrl + '/offers';
@@ -397,6 +402,7 @@ app.get('/offers/standort/:standort', function(req, res){
 
 
 // GET /suchwort
+// sucht nach Offers die das Suchwort, das der Client eingibt, beinhalten und gibt diese aus
 app.get('/offers/suche/:suchwort', function(req, res){
 	var suchwort = req.params.suchwort;
 	var url = dUrl + '/offers';

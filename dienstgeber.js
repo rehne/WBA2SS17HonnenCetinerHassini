@@ -5,8 +5,6 @@ var bodyParser = require('body-parser');
 var app = express();
 app.use(bodyParser.json());
 
-
-
 const settings = {
   port: process.env.PORT || 3000,
   database: './database.json'
