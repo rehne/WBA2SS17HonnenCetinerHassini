@@ -5,6 +5,8 @@ var bodyParser = require('body-parser');
 var app = express();
 app.use(bodyParser.json());
 
+
+
 const settings = {
   port: process.env.PORT || 3000,
   database: './database.json'
@@ -69,7 +71,10 @@ app.post('/users', bodyParser.json(), function(req, res){
 				"lent_offers": []
       });
       fs.writeFile(settings.database, JSON.stringify(user, null, 2));
-      res.status(201).send("Benutzer erfolgreich gespeichert!");
+      res.write("" + max_index);
+      res.status(201);
+      res.end();
+
     }
   });
 });
@@ -171,8 +176,10 @@ app.post('/offers', bodyParser.json(), function(req, res){
       "longitude": null,
     });
     fs.writeFile(settings.database, JSON.stringify(offer, null, 2));
+    res.write("" + max_index);
+     	res.status(201);
+      	res.end();
   });
-  res.status(201).send("Offer erfolgreich gespeichert!\n");
 });
 
 // GET /:offerID

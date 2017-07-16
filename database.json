@@ -8,6 +8,70 @@
       "latitude": 50.9713052,
       "longitude": 6.913827,
       "lent_offers": []
+    },
+    {
+      "id": 2,
+      "prename": "Peter",
+      "name": "JAAA",
+      "username": "ne",
+      "address": "Josef-Bayer Straße 4, Köln",
+      "lent_offers": []
+    },
+    {
+      "id": 3,
+      "prename": "Karsch",
+      "name": "JAAA",
+      "username": "sss",
+      "address": "Josef-Bayer Straße 4, Köln",
+      "lent_offers": []
+    },
+    {
+      "id": 4,
+      "prename": "Karsch",
+      "name": "JAAA",
+      "username": "asdasdasd",
+      "address": "Josef-Bayer Straße 4, Köln",
+      "lent_offers": []
+    },
+    {
+      "id": 5,
+      "prename": "xxx",
+      "name": "JAAA",
+      "username": "PETERLUSTIG",
+      "address": "Josef-Bayer-Straße 4, 50733 Köln, Germany",
+      "latitude": 50.9602521,
+      "longitude": 6.9601014,
+      "lent_offers": []
+    },
+    {
+      "id": 6,
+      "prename": "xxx",
+      "name": "JAAA",
+      "username": "nein",
+      "address": "Josef-Bayer-Straße 4, 50733 Köln, Germany",
+      "latitude": 50.9602521,
+      "longitude": 6.9601014,
+      "lent_offers": []
+    },
+    {
+      "id": 7,
+      "prename": "xxx",
+      "name": "JAAA",
+      "username": "doch",
+      "address": "Josef-Bayer-Straße 4, 50733 Köln, Germany",
+      "latitude": 50.9602521,
+      "longitude": 6.9601014,
+      "lent_offers": []
+    },
+    {
+      "id": 8,
+      "prename": "xxx",
+      "name": "JAAA",
+      "username": "pimmel",
+      "address": "Josef-Bayer-Straße 4, 50733 Köln, Germany",
+      "latitude": 50.9602521,
+      "longitude": 6.9601014,
+      "lent_offers": []
     }
   ],
   "offers": [
@@ -40,6 +104,46 @@
       "imBesitzvonID": 2,
       "latitude": 50.8330101,
       "longitude": 7.0302304
+    },
+    {
+      "id": 4,
+      "name": "xxx",
+      "description": "JAAA",
+      "category": "pimmel",
+      "status": true,
+      "imBesitzvonID": null,
+      "latitude": null,
+      "longitude": null
+    },
+    {
+      "id": 5,
+      "name": "xxx",
+      "description": "JAAA",
+      "category": "xxxxxxxx",
+      "status": true,
+      "imBesitzvonID": null,
+      "latitude": null,
+      "longitude": null
+    },
+    {
+      "id": 6,
+      "name": "xxx",
+      "description": "JAAA",
+      "category": "Film",
+      "status": true,
+      "imBesitzvonID": null,
+      "latitude": null,
+      "longitude": null
+    },
+    {
+      "id": 7,
+      "name": "xxx",
+      "description": "JAAA",
+      "category": "Film",
+      "status": true,
+      "imBesitzvonID": null,
+      "latitude": null,
+      "longitude": null
     }
   ]
 }

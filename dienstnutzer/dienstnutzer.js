@@ -6,13 +6,17 @@ var app = express();
 var bodyParser = require('body-parser');
 var faye = require('faye');
 
+
+
 var googleMapsClient = require('@google/maps').createClient({
   key: 'AIzaSyDX3b5xS8GIcn3SlA2Pfpvl0-S5Fnqh8BM'
 });
 
 var dHost = 'http://localhost';
 var dPort = 3000;
+var dPortNutzer = 3001;
 var dUrl = dHost + ':' + dPort;
+var dUrlNutzer = dHost + ':' + dPortNutzer;
 
 app.set('views', path.join(__dirname + '/views'));
 app.set('view engine', 'ejs');
@@ -67,7 +71,12 @@ app.post('/users',bodyParser.json(), function(req, res){
         json: userData
       }
       request(options, function(err, response, body){
+      		if(response.statusCode != 409){
+    		res.json(dUrlNutzer + '/users/' + body);
+    	}else {
     		res.json(body);
+    	}
+
     	});
     } else {
       console.log(err);
@@ -186,7 +195,13 @@ app.post('/offers', bodyParser.json(), function(req, res){
 		json: offerData
 	}
 	request(options, function(err, response, body){
-		res.json(body);
+
+		if(response.statusCode != 409){
+    		res.json(dUrlNutzer + '/offers/' + body);
+    	}else {
+    		res.json(body);
+    	}
+    	
 	});
 });
 
