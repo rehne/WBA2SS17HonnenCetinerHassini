@@ -395,6 +395,38 @@ app.get('/offers/standort/:standort', function(req, res){
 	});
 });
 
+
+// GET /suchwort
+app.get('/offers/suche/:suchwort', function(req, res){
+	var suchwort = req.params.suchwort;
+	var url = dUrl + '/offers';
+	var searched_offers = {"searched_offers": []};
+	var count = 0;
+	
+	request.get(url, function (err, response, body){
+		body = JSON.parse(body);
+		for(var i = 0; i < body.length; i++){
+			if(body[i].name.search(suchwort) != -1 || body[i].description.search(suchwort) != -1 || body[i].category.search(suchwort) != -1){
+				searched_offers.searched_offers.push({
+					"id": body[i].id,
+      		"name": body[i].name,
+      		"description": body[i].description,
+      		"category" : body[i].category,
+      		"status" : body[i].status,
+      		"erstelltvonID": body[i].erstelltvonID,
+					"imBesitzvonID": body[i].imBesitzvonID,
+					"latitude" : body[i].latitude,
+					"longitude" : body[i].longitude	
+				});
+				count++;
+			}
+		}
+		if(count == 0) return res.status(404).send("no Offers with this word found");
+		else res.json(searched_offers);
+	});
+});
+	
+
 /*
 // ------------- FAYE -----------
 
