@@ -356,27 +356,28 @@ app.get('/offers/standort/:standort', function(req, res){
         	"latitude": response.json.results[0].geometry.location.lat,
         	"longitude": response.json.results[0].geometry.location.lng
       };
-		for(var i = 0; i < body.length; i++){
-			if(body[i].latitude >= (userData.latitude - 0.04) && body[i].latitude <= (userData.latitude + 0.04) && body[i].longitude >= (userData.longitude - 0.04) && body[i].longitude <= (userData.longitude + 0.04) ){
-				nearby_offers.nearby_offers.push({
-					"id": body[i].id,
-      		"name": body[i].name,
-      		"description": body[i].description,
-      		"category" : body[i].category,
-      		"status" : body[i].status,
-      		"userID": body[i].userID,
-					"imBesitzvonID": body[i].imBesitzvonID,
-					"latitude" : body[i].latitude,
-					"longitude" : body[i].longitude
-					});
-				count++;
+			for(var i = 0; i < body.length; i++){
+				if(body[i].latitude >= (userData.latitude - 0.04) && body[i].latitude <= (userData.latitude + 0.04) && body[i].longitude >= (userData.longitude - 0.04) && body[i].longitude <= (userData.longitude + 0.04) ){
+					nearby_offers.nearby_offers.push({
+						"id": body[i].id,
+      			"name": body[i].name,
+      			"description": body[i].description,
+      			"category" : body[i].category,
+      			"status" : body[i].status,
+      			"userID": body[i].userID,
+						"imBesitzvonID": body[i].imBesitzvonID,
+						"latitude" : body[i].latitude,
+						"longitude" : body[i].longitude
+						});
+					count++;
+				}
 			}
+	
+			if(count == 0) return res.status(404).send("no Offers in the area found");
+			else res.json(nearby_offers);
 		}
-			
-		if(count == 0) return res.status(404).send("no Offers in the area found");
-		else res.json(nearby_offers);
-		
-		});		
+				
+		});
 	});
 });
 
