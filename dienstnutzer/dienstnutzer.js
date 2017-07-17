@@ -185,12 +185,7 @@ app.post('/offers', function(req, res) {
 		json: offerData
 	}
 	request(options, function(err, response, body) {
-
-		if (response.statusCode != 409) {
-    		res.json(dUrlNutzer + '/offers/' + body);
-    	} else {
     		res.json(body);
-    	}
 	});
 });
 
