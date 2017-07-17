@@ -60,7 +60,7 @@ app.get('/users', function(req, res){
 app.post('/users', function(req, res) {
 	var url = dUrl + '/users';
 	if (req.body.address == null) {
-    return res.status(406).send("please stick to the form");
+    return res.status(406).send("Please stick to the form (firstname,lastname,adress");
   }
 	googleMapsClient.geocode({
     address: req.body.address
