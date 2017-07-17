@@ -167,7 +167,7 @@ app.get('/offers', function(req,res) {
 });
 
 // POST /offers
-app.post('/offers', bodyParser.json(), function(req, res) {
+app.post('/offers', function(req, res) {
 	var url = dUrl + '/offers';
 	var offerData = {
     "name": req.body.name,
@@ -208,7 +208,7 @@ app.get('/offers/:offerID', function (req, res) {
 });
 
 // PUT /offers/:offerID
-app.put('/offers/:offerID', bodyParser.json(), function(req, res) {
+app.put('/offers/:offerID', function(req, res) {
 	var offerID = req.params.offerID;
 	var url = dUrl + '/offers/' + offerID;
 	var offerDataNew = {
@@ -436,22 +436,6 @@ app.get('/offers/suche/:suchwort', function(req, res) {
     }
 	});
 });
-
-/*
-// ------------- FAYE -----------
-
-var fayeserver = new faye.NodeAdapter({
-		mount : '/faye',
-		timeout : 45
-});
-
-fayeserver.attach(app);
-
-var client = new faye.Client('http://localhost:3001/faye');
-client.subscribe('/news', function(message){
-		console.log(message.text);
-});
-*/
 
 app.listen(3001, function(){
   console.log('Dienstnutzer läuft auf Port 3001.');
