@@ -173,8 +173,8 @@ app.post('/offers', function(req, res) {
     "name": req.body.name,
     "description": req.body.description,
     "category" : req.body.category,
-    "erstelltvonID": req.body.erstelltvonID,
-		"uri_von_Ersteller": dUrlNutzer + /users/ + req.body.erstelltvonID
+    "createdByID": req.body.createdByID,
+		"creatorUri": dUrlNutzer + /users/ + req.body.createdByID
 	}
 	var options = {
 		uri : url,
@@ -207,6 +207,7 @@ app.get('/offers/:offerID', function (req, res) {
 	});
 });
 
+
 // PUT /offers/:offerID
 app.put('/offers/:offerID', function(req, res) {
 	var offerID = req.params.offerID;
@@ -215,8 +216,8 @@ app.put('/offers/:offerID', function(req, res) {
     "name": req.body.name,
     "description": req.body.description,
     "category" : req.body.category,
-    "status" : req.body.status,
-		"imBesitzvonID" : req.body.imBesitzvonID
+    "available" : req.body.status,
+		"currentOwner" : req.body.currentOwner
 	}
 	var options = {
 		uri : url,
@@ -271,10 +272,10 @@ app.get('/ausleiher/:offerID', function(req,res) {
 	request.get(url,function(err,response,body) {
 		if (response.statusCode == 200) {
 			body = JSON.parse(body);
-			if (body.imBesitzvonID == null || body.status == true) {
+			if (body.currentOwner == null || body.status == true) {
         res.send("available");
       } else {
-				var url = dUrl + '/users/' + body.imBesitzvonID;
+				var url = dUrl + '/users/' + body.currentOwner;
 				request.get(url,function(err2,response2,body2) {
 					body2 = JSON.parse(body2);
 					res.send( "loaned to: " + body2.username);
@@ -302,9 +303,9 @@ app.get('/offers/category/:category', function(req, res) {
         	"name": body[i].name,
         	"description": body[i].description,
         	"category" : body[i].category,
-        	"status" : body[i].status,
-        	"erstelltvonID": body[i].erstelltvonID,
-  				"imBesitzvonID": body[i].imBesitzvonID,
+        	"available" : body[i].status,
+        	"createdByID": body[i].createdByID,
+  				"currentOwner": body[i].currentOwner,
   				"latitude" : body2[i].latitude,
   				"longitude" : body2[i].longitude
 				});
@@ -331,15 +332,15 @@ app.get('/offers/ausgeliehen/:userID', function(req, res) {
 		request.get(url2, function (err2, response2, body2) {
 			body = JSON.parse(body);
 			for (var i = 0; i < body.length; i++) {
-				if (body[i].imBesitzvonID == userID) {
+				if (body[i].currentOwner == userID) {
 					lent_offers.lent_offers.push( {
   					"id": body[i].id,
         		"name": body[i].name,
         		"description": body[i].description,
         		"category" : body[i].category,
-        		"status" : body[i].status,
-        		"erstelltvonID": body[i].erstelltvonID,
-  					"imBesitzvonID": body[i].imBesitzvonID,
+        		"available" : body[i].status,
+        		"createdByID": body[i].createdByID,
+  					"currentOwner": body[i].currentOwner,
   					"latitude" : body2[i].latitude,
   					"longitude" : body2[i].longitude
 					});
@@ -384,9 +385,9 @@ app.get('/offers/standort/:standort', function(req, res) {
               "name": body[i].name,
               "description": body[i].description,
               "category" : body[i].category,
-              "status" : body[i].status,
-              "erstelltvonID": body[i].erstelltvonID,
-              "imBesitzvonID": body[i].imBesitzvonID,
+              "available" : body[i].status,
+              "createdByID": body[i].createdByID,
+              "currentOwner": body[i].currentOwner,
               "latitude" : body[i].latitude,
               "longitude" : body[i].longitude
 						});
@@ -421,9 +422,9 @@ app.get('/offers/suche/:suchwort', function(req, res) {
       		"name": body[i].name,
       		"description": body[i].description,
       		"category" : body[i].category,
-      		"status" : body[i].status,
-      		"erstelltvonID": body[i].erstelltvonID,
-					"imBesitzvonID": body[i].imBesitzvonID,
+      		"available" : body[i].status,
+      		"createdByID": body[i].createdByID,
+					"currentOwner": body[i].currentOwner,
 					"latitude" : body[i].latitude,
 					"longitude" : body[i].longitude
 				});
