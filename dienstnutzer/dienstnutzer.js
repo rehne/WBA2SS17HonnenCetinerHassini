@@ -134,7 +134,7 @@ app.delete('/users/:userID', function(req, res) {
 	var url = dUrl + '/users/' + userID;
 	request.delete(url, function(err, response, body) {
     if (response.statusCode != 404) {
-      return res.send(body + "User erfolgreich gelöscht");
+      return res.send(body + "User successfully deleted");
     }
 		res.send(body);
 	});
@@ -224,7 +224,7 @@ app.delete('/offers/:offerID', function(req, res) {
 	var url = dUrl + '/offers/' + offerID;
 	request.delete(url, function(err, response, body) {
     if (response.statusCode != 404) {
-      return res.send(body + "User erfolgreich gelöscht");
+      return res.send(body + "User successfully deleted");
     }
 		res.send(body);
 	});
@@ -258,12 +258,12 @@ app.get('/ausleiher/:offerID', function(req,res) {
 		if (response.statusCode == 200) {
 			body = JSON.parse(body);
 			if (body.imBesitzvonID == null || body.status == true) {
-        res.send("an niemanden Verliehen");
+        res.send("available");
       } else {
 				var url = dUrl + '/users/' + body.imBesitzvonID;
 				request.get(url,function(err2,response2,body2) {
 					body2 = JSON.parse(body2);
-					res.send( "verliehen an: " + body2.username);
+					res.send( "loaned to: " + body2.username);
 				});
 			}
 		} else {
@@ -298,7 +298,7 @@ app.get('/offers/category/:category', function(req, res) {
 			}
 		}
 		if (count == 0) {
-      res.status(404).send("no Offers with this category found");
+      res.status(404).send("no offers in this category found");
     } else {
       res.json(category_offers);
     }
@@ -333,7 +333,7 @@ app.get('/offers/ausgeliehen/:userID', function(req, res) {
 				}
 			}
   		if (count == 0 && response2.statusCode == 200) {
-        return res.status(404).send("no Offers lent by this user found");
+        return res.status(404).send("nothing loaned");
       } else if (response2.statusCode == 404) {
         res.status(404).send("user doesn't exist");
       } else {
@@ -380,7 +380,7 @@ app.get('/offers/standort/:standort', function(req, res) {
   				}
   			}
   			if (count == 0) {
-          return res.status(404).send("no Offers in the area found");
+          return res.status(404).send("no offers in this area found");
         } else {
           res.json(nearby_offers);
         }
@@ -417,7 +417,7 @@ app.get('/offers/suche/:suchwort', function(req, res) {
 			}
 		}
 		if (count == 0) {
-      return res.status(404).send("no Offers with this word found");
+      return res.status(404).send("no offers containing this word found");
     } else {
       res.json(searched_offers);
     }

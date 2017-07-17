@@ -16,7 +16,7 @@ app.use(function(err, req, res, next){
 });
 
 app.use(function(req, res, next){
-  console.log('Time ' + Date.now() + ' | Request-Pfad: ' + req.path);
+  console.log('Time ' + Date.now() + ' | Request-Path: ' + req.path);
   next();
 });
 
@@ -51,13 +51,13 @@ app.post('/users', bodyParser.json(), function(req, res){
       }
     }
     if (current_i < user.users.length){
-      res.status(409).send("Benutzername ist schon vergeben");
+      res.status(409).send("Username not available");
     } else {
 			if (req.body.firstname == null ||
           req.body.lastname == null ||
           req.body.username == null ||
           req.body.address == null ) {
-				return res.status(406).send("please stick to the form");
+				return res.status(406).send("Please stick to the form");
 			}
       user.users.push({
         "id": ++max_index,
@@ -93,7 +93,7 @@ app.get('/users/:userID', function(req,res){
     if (current_i < user.users.length){
       res.status(200).send(user.users[current_i]);
     } else {
-      res.status(404).send("User NOT FOUND");
+      res.status(404).send("User not found");
     }
   });
 });
@@ -104,7 +104,7 @@ app.put('/users/:userID', bodyParser.json(), function(req, res){
     var user = JSON.parse(data);
 
 		if (req.body.firstname == null || req.body.lastname == null ||  req.body.address == null ){
-				return res.status(406).send("please stick to the form");
+				return res.status(406).send("Please stick to the form");
 		}
     //find the searched user and edit his attribute
     for (var i = 0; i < user.users.length; i++ ){
@@ -113,10 +113,10 @@ app.put('/users/:userID', bodyParser.json(), function(req, res){
         user.users[i].lastname = req.body.lastname;
 				user.users[i].address = req.body.address;
         fs.writeFile(settings.database, JSON.stringify(user, null, 2));
-        return res.status(200).send("User erfolgreich bearbeitet");
+        return res.status(200).send("User successfully edited");
       }
     }
-    res.status(404).send("User zum bearbeiten nicht vorhanden.");
+    res.status(404).send("User doesn't exist");
   });
 });
 
@@ -136,9 +136,9 @@ app.delete('/users/:userID', function(req, res){
     if (current_i < user.users.length){
       user.users.splice(current_i,1);
       fs.writeFile(settings.database, JSON.stringify(user, null, 2));
-      res.status(204).send("User erfolgreich gelöscht");
+      res.status(204).send("User successfully deleted");
     } else {
-      res.status(404).send("User NOT FOUND");
+      res.status(404).send("User not found ");
     }
   });
 });
@@ -168,7 +168,7 @@ app.post('/offers', bodyParser.json(), function(req, res){
         req.body.description == null ||
         req.body.category == null ||
         req.body.erstelltvonID == null ){
-			return res.status(406).send("please stick to the form");
+			return res.status(406).send("Please stick to the form");
 		}
     //add a new offer
     offer.offers.push({
@@ -213,7 +213,7 @@ app.get('/offers/:offerID', function(req,res) {
     if (current_i < offer.offers.length) {
       res.status(200).send(offer.offers[current_i]);
     } else {
-      res.status(404).send("Offer NOT FOUND");
+      res.status(404).send("Offer not found");
     }
   });
 });
@@ -223,7 +223,7 @@ app.put('/offers/:offerID', bodyParser.json(), function(req, res) {
   fs.readFile(settings.database, function(err, data) {
     var offer = JSON.parse(data);
 		if (req.body.name == null || req.body.description == null || req.body.category == null ) {
-				return res.status(406).send("please stick to the form");
+				return res.status(406).send("Please stick to the form");
 		}
     //find the searched user and edit his attribute
     for (var i = 0; i < offer.offers.length; i++ ) {
@@ -246,10 +246,10 @@ app.put('/offers/:offerID', bodyParser.json(), function(req, res) {
 					offer.offers[i].status = false;
 				}
         fs.writeFile(settings.database, JSON.stringify(offer, null, 2));
-        return res.status(200).send("Offer erfolgreich bearbeitet");
+        return res.status(200).send("Offer successfully edited");
       }
     }
-    res.status(404).send("Offer zum Bearbeiten nicht vorhanden");
+    res.status(404).send("This offer doesn't exist");
   });
 });
 
@@ -269,9 +269,9 @@ app.delete('/offers/:offerID', function(req, res) {
     if (current_i < offer.offers.length){
       offer.offers.splice(current_i, 1);
       fs.writeFile(settings.database, JSON.stringify(offer, null, 2));
-      res.status(204).send("Offer erfolgreich gelöscht");
+      res.status(204).send("Offer successfully deleted");
     } else {
-      res.status(404).send("Offer NOT FOUND");
+      res.status(404).send("Offer not found");
     }
   });
 });
