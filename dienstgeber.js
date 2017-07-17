@@ -75,7 +75,7 @@ app.post('/users', function(req, res){
 				"own_offers": []
       });
       fs.writeFile(settings.database, JSON.stringify(user, null, 2));
-      res.write("User saved");
+      res.write("User sucessfully created");
       res.status(201);
       res.end();
     }
@@ -204,7 +204,7 @@ app.post('/offers', bodyParser.json(), function(req, res) {
 			}
 		}
     fs.writeFile(settings.database, JSON.stringify(offer, null, 2));
-    res.write("" + max_index);
+    res.write("Offer sucessfully created");
    	res.status(201);
   	res.end();
   });

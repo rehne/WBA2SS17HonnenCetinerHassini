@@ -83,7 +83,6 @@ app.post('/users', function(req, res) {
         json: userData
       }
       request(options, function(err, response, body) {
-        // fayeClient.publish('/test', {text: 'Hello World!'});
     		res.json(body);
     	});
     } else {
@@ -161,7 +160,6 @@ app.delete('/users/:userID', function(req, res) {
 app.get('/offers', function(req,res) {
 	var url = dUrl + '/offers';
 
-  // helper method, only for get requests
   request(url, function(err, response, body) {
     body = JSON.parse(body);
     res.json(body);
@@ -246,7 +244,8 @@ app.delete('/offers/:offerID', function(req, res) {
 });
 
 //GET/status/:offerID
-//gibt aus, ob ein bestimmter Offer verfügbar oder verliehen ist
+//gives information about loan status of offer
+
 app.get('/status/:offerID', function(req,res) {
 	var offerID = req.params.offerID;
 	var url = dUrl + '/offers/' + offerID;
@@ -265,7 +264,7 @@ app.get('/status/:offerID', function(req,res) {
 });
 
 //GET/ausleiher/:offerID
-//gibt aus, an wen ein bestimmter Offer verliehen ist
+//returns current holder of offer
 app.get('/ausleiher/:offerID', function(req,res) {
 	var offerID = req.params.offerID
 	var url = dUrl + '/offers/' + offerID;
@@ -288,7 +287,7 @@ app.get('/ausleiher/:offerID', function(req,res) {
 });
 
 // GET /category
-//gibt alle Offers mit einer bestimmten Kategorie aus
+//returns all offers in a specified category
 app.get('/offers/category/:category', function(req, res) {
 	var categoryType = req.params.category;
 	var category_offers = {"category_offers": []}
@@ -321,7 +320,7 @@ app.get('/offers/category/:category', function(req, res) {
 });
 
 // GET /offers/ausgeliehen/:userID
-// gibt eine Liste aller ausgeliehenen Offer eines bestimmten Users aus
+//returns a list of offers a specified user has loaned
 app.get('/offers/ausgeliehen/:userID', function(req, res) {
 	var userID = req.params.userID;
 	var lent_offers = {"lent_offers": []};
@@ -359,7 +358,7 @@ app.get('/offers/ausgeliehen/:userID', function(req, res) {
 });
 
 // GET /standort
-// gibt alle Offers in der Nähe eines bestimmten Standortes, der vom Client eingegeben wird, aus. In der Nähe bedeutet ca. 5km Umkreis
+// return all offers close to a location that is given by client, approx. 5km radius
 app.get('/offers/standort/:standort', function(req, res) {
 	var standort = req.params.standort;
 	var url = dUrl + '/offers';
@@ -405,7 +404,7 @@ app.get('/offers/standort/:standort', function(req, res) {
 });
 
 // GET /offers/suche/:suchwort
-// sucht nach Offers die das Suchwort, das der Client eingibt, beinhalten und gibt diese aus
+// searches offers that containt specified word and returns offers that match the criteria
 app.get('/offers/suche/:suchwort', function(req, res) {
 	var suchwort = req.params.suchwort;
 	var url = dUrl + '/offers';
