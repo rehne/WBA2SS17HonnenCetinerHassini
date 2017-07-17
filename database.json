@@ -18,6 +18,26 @@
           "offer_uri": "http://localhost:3001/offers/2"
         }
       ]
+    },
+    {
+      "id": 2,
+      "prename": "Pascal",
+      "name": "Lutz",
+      "username": "lutzi",
+      "address": "Heideweg 6, 47638",
+      "latitude": 51.37296,
+      "longitude": 6.25496,
+      "own_offers": []
+    },
+    {
+      "id": 3,
+      "firstname": "Rene",
+      "lastname": "Honnen",
+      "username": "rehne",
+      "address": "Niederdorfer Str. 58, 47638 Straelen, Germany",
+      "latitude": 51.3880543,
+      "longitude": 6.2402665,
+      "own_offers": []
     }
   ],
   "offers": [

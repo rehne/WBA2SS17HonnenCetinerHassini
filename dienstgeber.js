@@ -38,60 +38,59 @@ app.post('/users', bodyParser.json(), function(req, res){
     var current_i = user.users.length;
 
     // id of the last user is inserted into max_index
-    for(var i = 0; i < user.users.length; i++){
-      if(user.users[i].id > max_index){
+    for (var i = 0; i < user.users.length; i++){
+      if (user.users[i].id > max_index){
         max_index = user.users[i].id;
       }
     }
 
     // Check if username is already assigned. Print an error or add an new user
-    for(var i = 0; i < user.users.length; i++){
-      if(user.users[i].username == req.body.username){
+    for (var i = 0; i < user.users.length; i++){
+      if (user.users[i].username == req.body.username){
         current_i = i;
       }
     }
-    if(current_i < user.users.length){
+    if (current_i < user.users.length){
       res.status(409).send("Benutzername ist schon vergeben");
     } else {
-			
-			if(req.body.prename == null || req.body.name == null || req.body.username == null || req.body.address == null ){
+			if (req.body.firstname == null ||
+          req.body.lastname == null ||
+          req.body.username == null ||
+          req.body.address == null ) {
 				return res.status(406).send("please stick to the form");
 			}
       user.users.push({
         "id": ++max_index,
-        "prename": req.body.prename,
-        "name": req.body.name,
+        "firstname": req.body.firstname,
+        "lastname": req.body.lastname,
         "username": req.body.username,
 				"address": req.body.address,
         "latitude": req.body.latitude,
         "longitude": req.body.longitude,
 				"own_offers": []
       });
-			
-			
       fs.writeFile(settings.database, JSON.stringify(user, null, 2));
       res.write("User saved");
       res.status(201);
       res.end();
-
     }
   });
 });
 
-// GET /usersID
+// GET /users/:userID
 app.get('/users/:userID', function(req,res){
   fs.readFile(settings.database, function(err, data){
     var user = JSON.parse(data);
     var current_i = user.users.length;
 
     //Find the position of the searched user and save it in current_i
-    for(var i = 0; i < user.users.length; i++ ){
-      if(user.users[i].id == req.params.userID){
+    for (var i = 0; i < user.users.length; i++ ){
+      if (user.users[i].id == req.params.userID){
         current_i = i;
       }
     }
-//if current_i is already the same like number of the users, there are no user found. is current_i not the same, print the user
-    if(current_i < user.users.length){
+    // if current_i is already the same like number of the users, there are no user found. is current_i not the same, print the user
+    if (current_i < user.users.length){
       res.status(200).send(user.users[current_i]);
     } else {
       res.status(404).send("User NOT FOUND");
@@ -99,21 +98,20 @@ app.get('/users/:userID', function(req,res){
   });
 });
 
-// PUT /usersID
+// PUT /users/:userID
 app.put('/users/:userID', bodyParser.json(), function(req, res){
   fs.readFile(settings.database, function(err, data){
     var user = JSON.parse(data);
-		
-		if(req.body.prename == null || req.body.name == null ||  req.body.address == null ){
+
+		if (req.body.firstname == null || req.body.lastname == null ||  req.body.address == null ){
 				return res.status(406).send("please stick to the form");
 		}
     //find the searched user and edit his attribute
-    for(var i = 0; i < user.users.length; i++ ){
-      if(user.users[i].id == req.params.userID){
-        user.users[i].prename = req.body.prename;
-        user.users[i].name = req.body.name;
+    for (var i = 0; i < user.users.length; i++ ){
+      if (user.users[i].id == req.params.userID){
+        user.users[i].firstname = req.body.firstname;
+        user.users[i].lastname = req.body.lastname;
 				user.users[i].address = req.body.address;
-				
         fs.writeFile(settings.database, JSON.stringify(user, null, 2));
         return res.status(200).send("User erfolgreich bearbeitet");
       }
@@ -129,13 +127,13 @@ app.delete('/users/:userID', function(req, res){
     var current_i = user.users.length;
 
     // Find the position of the searched user and save it in current_i
-    for(var i = 0; i < user.users.length; i++ ){
-      if(user.users[i].id == req.params.userID){
+    for (var i = 0; i < user.users.length; i++ ){
+      if (user.users[i].id == req.params.userID){
         current_i = i;
       }
     }
     // if current_i is already the same like number of the users, there are no user found. is current_i not the same, delete the user
-    if(current_i < user.users.length){
+    if (current_i < user.users.length){
       user.users.splice(current_i,1);
       fs.writeFile(settings.database, JSON.stringify(user, null, 2));
       res.status(204).send("User erfolgreich gelöscht");
@@ -161,14 +159,16 @@ app.post('/offers', bodyParser.json(), function(req, res){
     var offer = JSON.parse(data);
     var max_index = 0;
     // id of the last offer is inserted into max_index
-    for(var i = 0; i < offer.offers.length; i++){
-      if(offer.offers[i].id > max_index){
+    for (var i = 0; i < offer.offers.length; i++){
+      if (offer.offers[i].id > max_index){
         max_index = offer.offers[i].id;
       }
     }
-		
-		if(req.body.name == null || req.body.description == null || req.body.category == null || req.body.erstelltvonID == null ){
-				return res.status(406).send("please stick to the form");
+		if (req.body.name == null ||
+        req.body.description == null ||
+        req.body.category == null ||
+        req.body.erstelltvonID == null ){
+			return res.status(406).send("please stick to the form");
 		}
     //add a new offer
     offer.offers.push({
@@ -183,36 +183,34 @@ app.post('/offers', bodyParser.json(), function(req, res){
 			"latitude": null,
       "longitude": null
     });
-		
-		for(var x = 0; x < offer.users.length; x++){
-					if(offer.users[x].id == req.body.erstelltvonID){
-						offer.users[x].own_offers.push({
-							"offerID": max_index,
-      				"offer_uri": 'http://localhost:3001/offers/' + max_index	
-						});
-					}
-									
-				}
+		for (var x = 0; x < offer.users.length; x++){
+			if (offer.users[x].id == req.body.erstelltvonID){
+				offer.users[x].own_offers.push({
+					"offerID": max_index,
+  				"offer_uri": 'http://localhost:3001/offers/' + max_index
+				});
+			}
+		}
     fs.writeFile(settings.database, JSON.stringify(offer, null, 2));
     res.write("" + max_index);
-     	res.status(201);
-      	res.end();
+   	res.status(201);
+  	res.end();
   });
 });
 
 // GET /:offerID
-app.get('/offers/:offerID', function(req,res){
-  fs.readFile(settings.database, function(err, data){
+app.get('/offers/:offerID', function(req,res) {
+  fs.readFile(settings.database, function(err, data) {
     var offer = JSON.parse(data);
     var  current_i = offer.offers.length;
     //Find the position of the searched offer and save it in current_i
-    for(var i = 0; i < offer.offers.length; i++ ){
-      if(offer.offers[i].id == req.params.offerID){
+    for (var i = 0; i < offer.offers.length; i++ ) {
+      if (offer.offers[i].id == req.params.offerID) {
         current_i = i;
       }
     }
     //if current_i is already the same like number of the offers, there are no offer found. is current_i not the same, print the offer
-    if(current_i < offer.offers.length){
+    if (current_i < offer.offers.length) {
       res.status(200).send(offer.offers[current_i]);
     } else {
       res.status(404).send("Offer NOT FOUND");
@@ -221,31 +219,32 @@ app.get('/offers/:offerID', function(req,res){
 });
 
 // PUT /:offerID
-app.put('/offers/:offerID', bodyParser.json(), function(req, res){
-  fs.readFile(settings.database, function(err, data){
+app.put('/offers/:offerID', bodyParser.json(), function(req, res) {
+  fs.readFile(settings.database, function(err, data) {
     var offer = JSON.parse(data);
-		
-		if(req.body.name == null || req.body.description == null || req.body.category == null ){
+		if (req.body.name == null || req.body.description == null || req.body.category == null ) {
 				return res.status(406).send("please stick to the form");
 		}
     //find the searched user and edit his attribute
-    for(var i = 0; i < offer.offers.length; i++ ){
-      if(offer.offers[i].id == req.params.offerID){
+    for (var i = 0; i < offer.offers.length; i++ ) {
+      if (offer.offers[i].id == req.params.offerID) {
         offer.offers[i].name = req.body.name;
         offer.offers[i].description = req.body.description;
         offer.offers[i].category = req.body.category;
-				if(req.body.imBesitzvonID == null) offer.offers[i].imBesitzvonID = null;
-				else offer.offers[i].imBesitzvonID = req.body.imBesitzvonID;
-				for(var x = 0; x < offer.users.length; x++){
-					if(offer.users[x].id == req.body.imBesitzvonID){
+				if (req.body.imBesitzvonID == null) {
+          offer.offers[i].imBesitzvonID = null;
+        } else {
+          offer.offers[i].imBesitzvonID = req.body.imBesitzvonID;
+        }
+				for (var x = 0; x < offer.users.length; x++) {
+					if (offer.users[x].id == req.body.imBesitzvonID) {
 						offer.offers[i].latitude = offer.users[x].latitude;
 						offer.offers[i].longitude = offer.users[x].longitude;
 					}
 				}
-				if(offer.offers[i].imBesitzvonID != null ) {
+				if (offer.offers[i].imBesitzvonID != null ) {
 					offer.offers[i].status = false;
 				}
-					
         fs.writeFile(settings.database, JSON.stringify(offer, null, 2));
         return res.status(200).send("Offer erfolgreich bearbeitet");
       }
@@ -254,20 +253,20 @@ app.put('/offers/:offerID', bodyParser.json(), function(req, res){
   });
 });
 
-// DELETE /:offerID
-app.delete('/offers/:offerID', function(req, res){
-  fs.readFile(settings.database, function(err, data){
+// DELETE /offers/:offerID
+app.delete('/offers/:offerID', function(req, res) {
+  fs.readFile(settings.database, function(err, data) {
     var offer = JSON.parse(data);
     var current_i ;
 
     //Find the position of the searched offer and save it in current_i
-    for(var i = 0; i < offer.offers.length; i++ ){
-      if(offer.offers[i].id == req.params.offerID){
+    for (var i = 0; i < offer.offers.length; i++ ) {
+      if (offer.offers[i].id == req.params.offerID) {
         current_i = i;
       }
     }
-    //if current_i is already the same like number of the offers, there are no offer found. is current_i not the same, delete the offer
-    if(current_i < offer.offers.length){
+    // if current_i is already the same like number of the offers, there are no offer found. is current_i not the same, delete the offer
+    if (current_i < offer.offers.length){
       offer.offers.splice(current_i, 1);
       fs.writeFile(settings.database, JSON.stringify(offer, null, 2));
       res.status(204).send("Offer erfolgreich gelöscht");
