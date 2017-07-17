@@ -18,13 +18,15 @@ var fayeServer = new faye.NodeAdapter({
 
 fayeServer.attach(server);
 
-var dHost = 'http://localhost';
+var dHostLocal = 'http://localhost';
+var dHostDeployed = 'https://wba2.herokuapp.com';
 var dPort = 3000;
 var dPortNutzer = 3001;
-var dUrl = dHost + ':' + dPort;
-var dUrlNutzer = dHost + ':' + dPortNutzer;
+var dUrl = dHostDeployed;
+var dUrlNutzerDeployed = dHostDeployed + ':' + dPortNutzer;
+var dUrlNutzer = dHostLocal + ':' + dPortNutzer;
 
-var fayeClient = new faye.Client(dHost + ':' + dPortNutzer + '/faye');
+var fayeClient = new faye.Client(dHostDeployed + ':' + dPortNutzer + '/faye');
 
 app.set('views', path.join(__dirname + '/views'));
 app.set('view engine', 'ejs');
