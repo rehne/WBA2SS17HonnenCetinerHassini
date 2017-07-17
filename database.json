@@ -2,68 +2,14 @@
   "users": [
     {
       "id": 1,
-      "prename": "Sami",
-      "name": "Hassini",
-      "username": "SamiNo",
-      "address": "Peter-Michels-Straße 27, 50827 Köln, Germany",
-      "latitude": 50.9713052,
-      "longitude": 6.913827,
-      "own_offers": [
-        {
-          "offerID": 1,
-          "offer_uri": "http://localhost:3001/offers/1"
-        },
-        {
-          "offerID": 2,
-          "offer_uri": "http://localhost:3001/offers/2"
-        }
-      ]
-    },
-    {
-      "id": 2,
-      "prename": "Pascal",
-      "name": "Lutz",
-      "username": "lutzi",
-      "address": "Heideweg 6, 47638",
-      "latitude": 51.37296,
-      "longitude": 6.25496,
-      "own_offers": []
-    },
-    {
-      "id": 3,
       "firstname": "Rene",
       "lastname": "Honnen",
       "username": "rehne",
-      "address": "Niederdorfer Str. 58, 47638 Straelen, Germany",
-      "latitude": 51.3880543,
-      "longitude": 6.2402665,
+      "address": "Olympischer Platz 3, 14053 Berlin, Germany",
+      "latitude": 52.5146971,
+      "longitude": 13.2394987,
       "own_offers": []
     }
   ],
-  "offers": [
-    {
-      "id": 1,
-      "name": "Hassini",
-      "erstelltvonID": 1,
-      "uri_von_Ersteller": "http://localhost:3001/users/1",
-      "status": false,
-      "latitude": null,
-      "longitude": null,
-      "description": "Sami",
-      "category": "film",
-      "imBesitzvonID": null
-    },
-    {
-      "id": 2,
-      "name": "Hassini",
-      "category": "film",
-      "erstelltvonID": 1,
-      "uri_von_Ersteller": "http://localhost:3001/users/1",
-      "status": false,
-      "imBesitzvonID": null,
-      "latitude": 50.9713052,
-      "longitude": 6.913827,
-      "description": "Sami"
-    }
-  ]
+  "offers": []
 }

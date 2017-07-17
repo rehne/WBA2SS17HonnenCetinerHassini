@@ -10,14 +10,26 @@ var googleMapsClient = require('@google/maps').createClient({
   key: 'AIzaSyDX3b5xS8GIcn3SlA2Pfpvl0-S5Fnqh8BM'
 });
 
+var server = http.createServer();
+var fayeServer = new faye.NodeAdapter({
+  mount: '/faye',
+  timeout: 45
+});
+
+fayeServer.attach(server);
+
 var dHost = 'http://localhost';
 var dPort = 3000;
 var dPortNutzer = 3001;
 var dUrl = dHost + ':' + dPort;
 var dUrlNutzer = dHost + ':' + dPortNutzer;
 
+var fayeClient = new faye.Client(dHost + ':' + dPortNutzer + '/faye');
+
 app.set('views', path.join(__dirname + '/views'));
 app.set('view engine', 'ejs');
+
+app.use(bodyParser.json());
 
 // Routen
 app.get('/login', function(req, res){
@@ -43,7 +55,7 @@ app.get('/users', function(req, res){
 });
 
 // POST /users
-app.post('/users',bodyParser.json(), function(req, res) {
+app.post('/users', function(req, res) {
 	var url = dUrl + '/users';
 	if (req.body.address == null) {
     return res.status(406).send("please stick to the form");
@@ -69,6 +81,7 @@ app.post('/users',bodyParser.json(), function(req, res) {
         json: userData
       }
       request(options, function(err, response, body) {
+        // fayeClient.publish('/test', {text: 'Hello World!'});
     		res.json(body);
     	});
     } else {
