@@ -25,6 +25,11 @@ app.use(function(req, res, next){
 // GET /users
 app.get('/users', function(req, res){
   fs.readFile(settings.database, function(err, data){
+
+    if(err){
+        console.log(err);
+        res.status(500).send("database error")
+    }
     var user = JSON.parse(data);
     res.status(200).send(user.users);
   });
@@ -149,6 +154,11 @@ app.delete('/users/:userID', function(req, res){
 app.get('/offers', function(req, res){
   fs.readFile(settings.database, function(err, data){
     var offers = JSON.parse(data);
+    if(err){
+        console.log(err);
+        res.status(500).send("database error")
+    }
+    
     res.status(200).send(offers.offers);
   });
 });
