@@ -53,19 +53,24 @@ app.post('/users', bodyParser.json(), function(req, res){
     if(current_i < user.users.length){
       res.status(409).send("Benutzername ist schon vergeben");
     } else {
+			
+			if(req.body.prename == null || req.body.name == null || req.body.username == null || req.body.address == null ){
+				return res.status(406).send("please stick to the form");
+			}
       user.users.push({
         "id": ++max_index,
         "prename": req.body.prename,
         "name": req.body.name,
         "username": req.body.username,
-				"password": req.body.password,
 				"address": req.body.address,
         "latitude": req.body.latitude,
         "longitude": req.body.longitude,
-				"oen_offers": []
+				"own_offers": []
       });
+			
+			
       fs.writeFile(settings.database, JSON.stringify(user, null, 2));
-      res.write("" + max_index);
+      res.write("User saved");
       res.status(201);
       res.end();
 
@@ -98,6 +103,10 @@ app.get('/users/:userID', function(req,res){
 app.put('/users/:userID', bodyParser.json(), function(req, res){
   fs.readFile(settings.database, function(err, data){
     var user = JSON.parse(data);
+		
+		if(req.body.prename == null || req.body.name == null ||  req.body.address == null ){
+				return res.status(406).send("please stick to the form");
+		}
     //find the searched user and edit his attribute
     for(var i = 0; i < user.users.length; i++ ){
       if(user.users[i].id == req.params.userID){
@@ -157,6 +166,10 @@ app.post('/offers', bodyParser.json(), function(req, res){
         max_index = offer.offers[i].id;
       }
     }
+		
+		if(req.body.name == null || req.body.description == null || req.body.category == null || req.body.erstelltvonID == null ){
+				return res.status(406).send("please stick to the form");
+		}
     //add a new offer
     offer.offers.push({
       "id": ++max_index,
@@ -164,11 +177,22 @@ app.post('/offers', bodyParser.json(), function(req, res){
       "description": req.body.description,
       "category" : req.body.category,
       "erstelltvonID" : req.body.erstelltvonID,
+			"uri_von_Ersteller" : req.body.uri_von_Ersteller,
 			"status" : true,
 			"imBesitzvonID": null,
 			"latitude": null,
-      "longitude": null,
+      "longitude": null
     });
+		
+		for(var x = 0; x < offer.users.length; x++){
+					if(offer.users[x].id == req.body.erstelltvonID){
+						offer.users[x].own_offers.push({
+							"offerID": max_index,
+      				"offer_uri": 'http://localhost:3001/offers/' + max_index	
+						});
+					}
+									
+				}
     fs.writeFile(settings.database, JSON.stringify(offer, null, 2));
     res.write("" + max_index);
      	res.status(201);
@@ -200,20 +224,28 @@ app.get('/offers/:offerID', function(req,res){
 app.put('/offers/:offerID', bodyParser.json(), function(req, res){
   fs.readFile(settings.database, function(err, data){
     var offer = JSON.parse(data);
+		
+		if(req.body.name == null || req.body.description == null || req.body.category == null ){
+				return res.status(406).send("please stick to the form");
+		}
     //find the searched user and edit his attribute
     for(var i = 0; i < offer.offers.length; i++ ){
       if(offer.offers[i].id == req.params.offerID){
         offer.offers[i].name = req.body.name;
         offer.offers[i].description = req.body.description;
         offer.offers[i].category = req.body.category;
-				offer.offers[i].imBesitzvonID = req.body.imBesitzvonID;
+				if(req.body.imBesitzvonID == null) offer.offers[i].imBesitzvonID = null;
+				else offer.offers[i].imBesitzvonID = req.body.imBesitzvonID;
 				for(var x = 0; x < offer.users.length; x++){
 					if(offer.users[x].id == req.body.imBesitzvonID){
 						offer.offers[i].latitude = offer.users[x].latitude;
 						offer.offers[i].longitude = offer.users[x].longitude;
 					}
 				}
-				if(offer.offers[i].imBesitzvonID != null ) offer.offers[i].status = false;
+				if(offer.offers[i].imBesitzvonID != null ) {
+					offer.offers[i].status = false;
+				}
+					
         fs.writeFile(settings.database, JSON.stringify(offer, null, 2));
         return res.status(200).send("Offer erfolgreich bearbeitet");
       }

@@ -4,55 +4,46 @@
       "id": 1,
       "prename": "Sami",
       "name": "Hassini",
+      "username": "SamiNo",
       "address": "Peter-Michels-Straße 27, 50827 Köln, Germany",
       "latitude": 50.9713052,
       "longitude": 6.913827,
-      "own_offers": []
-    },
-    {
-      "id": 2,
-      "prename": "Rene",
-      "name": "Honnen",
-      "username": "rehne",
-      "address": "Wasserfuhrstraße 15, 51643 Gummersbach, Germany",
-      "latitude": 51.0292165,
-      "longitude": 7.553982599999999,
-      "own_offers": []
+      "own_offers": [
+        {
+          "offerID": 1,
+          "offer_uri": "http://localhost:3001/offers/1"
+        },
+        {
+          "offerID": 2,
+          "offer_uri": "http://localhost:3001/offers/2"
+        }
+      ]
     }
   ],
   "offers": [
     {
       "id": 1,
-      "name": "Nimbus2000",
-      "description": "Besen",
-      "category": "Film",
+      "name": "Hassini",
       "erstelltvonID": 1,
+      "uri_von_Ersteller": "http://localhost:3001/users/1",
       "status": false,
-      "imBesitzvonID": 2,
-      "latitude": 51.0292165,
-      "longitude": 7.553982599999999
+      "latitude": null,
+      "longitude": null,
+      "description": "Sami",
+      "category": "film",
+      "imBesitzvonID": null
     },
     {
       "id": 2,
-      "name": "Elderstab",
-      "description": "Zauberstab",
-      "category": "Film",
-      "erstelltvonID": 2,
+      "name": "Hassini",
+      "category": "film",
+      "erstelltvonID": 1,
+      "uri_von_Ersteller": "http://localhost:3001/users/1",
       "status": false,
-      "imBesitzvonID": 1,
+      "imBesitzvonID": null,
       "latitude": 50.9713052,
-      "longitude": 6.913827
-    },
-    {
-      "id": 3,
-      "name": "FC Trikot",
-      "description": "Trikot von Fussball",
-      "category": "Mode",
-      "erstelltvonID": 2,
-      "status": false,
-      "imBesitzvonID": 1,
-      "latitude": 50.9713052,
-      "longitude": 6.913827
+      "longitude": 6.913827,
+      "description": "Sami"
     }
   ]
 }
