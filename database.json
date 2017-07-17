@@ -2,12 +2,12 @@
   "users": [
     {
       "id": 1,
-      "firstname": "Rene",
-      "lastname": "Honnen",
+      "firstname": "Aziz",
+      "lastname": "Cetiner",
       "username": "rehne",
-      "address": "Olympischer Platz 3, 14053 Berlin, Germany",
-      "latitude": 52.5146971,
-      "longitude": 13.2394987,
+      "address": "Peter-Michels-Straße 27, 50827 Köln, Germany",
+      "latitude": 50.9713052,
+      "longitude": 6.913827,
       "own_offers": []
     }
   ],

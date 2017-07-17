@@ -62,7 +62,7 @@ app.post('/users', function(req, res){
           req.body.lastname == null ||
           req.body.username == null ||
           req.body.address == null ) {
-				return res.status(406).send("Please stick to the form (firstname,lastname,username,adress");
+				return res.status(406).send("Please stick to the form (firstname,lastname,username,address)");
 			}
       user.users.push({
         "id": ++max_index,
@@ -109,7 +109,7 @@ app.put('/users/:userID', function(req, res) {
     var user = JSON.parse(data);
 
 		if (req.body.firstname == null || req.body.lastname == null ||  req.body.address == null ){
-				return res.status(406).send("Please stick to the form (firstname,lastname,adress");
+				return res.status(406).send("Please stick to the form (firstname,lastname,address)");
 		}
     //find the searched user and edit his attribute
     for (var i = 0; i < user.users.length; i++ ) {
@@ -236,7 +236,7 @@ app.put('/offers/:offerID', function(req, res) {
   fs.readFile(settings.database, function(err, data) {
     var offer = JSON.parse(data);
 		if (req.body.name == null || req.body.description == null || req.body.category == null ) {
-				return res.status(406).send("Please stick to the form (offerID,name,description,category)");
+				return res.status(406).send("Please stick to the form (name,description,category)");
 		}
     //find the searched user and edit his attribute
     for (var i = 0; i < offer.offers.length; i++ ) {
