@@ -49,7 +49,9 @@ app.get('/users', function(req, res){
 // POST /users
 app.post('/users',bodyParser.json(), function(req, res){
 	var url = dUrl + '/users';
-  googleMapsClient.geocode({
+  
+	if(req.body.address == null) return res.status(406).send("please stick to the form"); 
+	googleMapsClient.geocode({
     address: req.body.address
   }, function(err, response) {
     if (!err) {
@@ -71,11 +73,9 @@ app.post('/users',bodyParser.json(), function(req, res){
         json: userData
       }
       request(options, function(err, response, body){
-      		if(response.statusCode != 409){
-    		res.json(dUrlNutzer + '/users/' + body);
-    	}else {
+      	
     		res.json(body);
-    	}
+    	
 
     	});
     } else {
@@ -96,21 +96,6 @@ app.get('/users/:userID', bodyParser.json(), function (req, res){
 			if(response.statusCode == 200){
       	body = JSON.parse(body);
 				body2 = JSON.parse(body2);
-				for(var i = 0; i < body2.length; i++){
-					if(body2[i].erstelltvonID == body.id){
-						body.own_offers.push({
-						"id": body2[i].id,
-      			"name": body2[i].name,
-      			"description": body2[i].description,
-						"category" : body2[i].category,
-      			"status" : body2[i].status,
-      			"erstelltvonID": body2[i].erstelltvonID,
-						"imBesitzvonID": body2[i].imBesitzvonID,
-						"latitude" : body2[i].latitude,
-						"longitude" : body2[i].longitude
-					});
-					}
-    		}
 			}
 			res.json(body);	
 		});
@@ -121,11 +106,17 @@ app.get('/users/:userID', bodyParser.json(), function (req, res){
 app.put('/users/:userID', bodyParser.json(), function(req, res){
 	var userID = req.params.userID;
 	var url = dUrl + '/users/' + userID;
-	var userDataNew = {
-		"prename": req.body.prename,
-    "name": req.body.name,
-		"address": req.body.address
-	};
+	
+		if(req.body.address == null) return res.status(406).send("please stick to the form"); 
+	googleMapsClient.geocode({
+    address: req.body.address
+  }, function(err, response) {
+    if (!err) {
+				var userDataNew = {
+				"prename": req.body.prename,
+    		"name": req.body.name,
+				"address": req.body.address
+			};
 	var options = {
 		uri : url,
 		method: 'PUT',
@@ -150,7 +141,11 @@ app.put('/users/:userID', bodyParser.json(), function(req, res){
 	request(options, function(err, response, body){
     res.json(body);
 	});
+	} else {
+      console.log(err);
+    }
 });
+	});
 
 // DELETE /users/:userID
 app.delete('/users/:userID', function(req, res){
@@ -183,7 +178,8 @@ app.post('/offers', bodyParser.json(), function(req, res){
     "name": req.body.name,
     "description": req.body.description,
     "category" : req.body.category,
-    "erstelltvonID": req.body.erstelltvonID
+    "erstelltvonID": req.body.erstelltvonID,
+		"uri_von_Ersteller": dUrlNutzer + /users/ + req.body.erstelltvonID
 	}
 	var options = {
 		uri : url,
