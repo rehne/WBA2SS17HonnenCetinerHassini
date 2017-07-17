@@ -62,7 +62,7 @@ app.post('/users', function(req, res){
           req.body.lastname == null ||
           req.body.username == null ||
           req.body.address == null ) {
-				return res.status(406).send("Please stick to the form");
+				return res.status(406).send("Please stick to the form (firstname,lastname,username,adress");
 			}
       user.users.push({
         "id": ++max_index,
@@ -109,7 +109,7 @@ app.put('/users/:userID', function(req, res) {
     var user = JSON.parse(data);
 
 		if (req.body.firstname == null || req.body.lastname == null ||  req.body.address == null ){
-				return res.status(406).send("Please stick to the form");
+				return res.status(406).send("Please stick to the form (firstname,lastname,adress");
 		}
     //find the searched user and edit his attribute
     for (var i = 0; i < user.users.length; i++ ) {
@@ -176,11 +176,12 @@ app.post('/offers', bodyParser.json(), function(req, res) {
         max_index = offer.offers[i].id;
       }
     }
+
 		if (req.body.name == null ||
         req.body.description == null ||
         req.body.category == null ||
-        req.body.erstelltvonID == null ) {
-			return res.status(406).send("Please stick to the form");
+        req.body.createdByID == null ) {
+			return res.status(406).send("Please stick to the form (name,description,category,createdByID)");
 		}
     //add a new offer
     offer.offers.push( {
@@ -188,15 +189,15 @@ app.post('/offers', bodyParser.json(), function(req, res) {
       "name": req.body.name,
       "description": req.body.description,
       "category" : req.body.category,
-      "erstelltvonID" : req.body.erstelltvonID,
-			"uri_von_Ersteller" : req.body.uri_von_Ersteller,
-			"status" : true,
-			"imBesitzvonID": null,
+      "createdByID" : req.body.createdByID,
+			"creatorUri" : req.body.creatorUri,
+			"available" : true,
+			"currentOwner": null,
 			"latitude": null,
       "longitude": null
     });
 		for (var x = 0; x < offer.users.length; x++) {
-			if (offer.users[x].id == req.body.erstelltvonID) {
+			if (offer.users[x].id == req.body.createdByID) {
 				offer.users[x].own_offers.push({
 					"offerID": max_index,
   				"offer_uri": 'http://localhost:3001/offers/' + max_index
@@ -235,7 +236,7 @@ app.put('/offers/:offerID', function(req, res) {
   fs.readFile(settings.database, function(err, data) {
     var offer = JSON.parse(data);
 		if (req.body.name == null || req.body.description == null || req.body.category == null ) {
-				return res.status(406).send("Please stick to the form");
+				return res.status(406).send("Please stick to the form (offerID,name,description,category)");
 		}
     //find the searched user and edit his attribute
     for (var i = 0; i < offer.offers.length; i++ ) {
@@ -243,18 +244,18 @@ app.put('/offers/:offerID', function(req, res) {
         offer.offers[i].name = req.body.name;
         offer.offers[i].description = req.body.description;
         offer.offers[i].category = req.body.category;
-				if (req.body.imBesitzvonID == null) {
-          offer.offers[i].imBesitzvonID = null;
+				if (req.body.currentOwner == null) {
+          offer.offers[i].currentOwner = null;
         } else {
-          offer.offers[i].imBesitzvonID = req.body.imBesitzvonID;
+          offer.offers[i].currentOwner = req.body.currentOwner;
         }
 				for (var x = 0; x < offer.users.length; x++) {
-					if (offer.users[x].id == req.body.imBesitzvonID) {
+					if (offer.users[x].id == req.body.currentOwner) {
 						offer.offers[i].latitude = offer.users[x].latitude;
 						offer.offers[i].longitude = offer.users[x].longitude;
 					}
 				}
-				if (offer.offers[i].imBesitzvonID != null ) {
+				if (offer.offers[i].currentOwner != null ) {
 					offer.offers[i].status = false;
 				}
         fs.writeFile(settings.database, JSON.stringify(offer, null, 2));
